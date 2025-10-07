@@ -12,7 +12,8 @@ function Home(){
                     Une épidémie fulgurante, inconnue et hautement contagieuse, ravage la population. 
                     En moins de 72 heures, les communications chutent, les villes se vident, et les systèmes médicaux s’effondrent.
                     Les rares laboratoires capables de fabriquer un antidote ont été contaminés… sauf un : l’Hôpital Saint-Vital, isolé mais encore fonctionnel.
-                    <br /><br />
+                </p>
+                <p class="home_intro">
                     Cet hôpital détient les ressources nécessaires à la fabrication d’un antidote, mais les protocoles d'urgence ont verrouillé l'accès aux ingrédients.
                     Selon les dernières données, 4 ou 5 composés essentiels sont encore disséminés dans différents services de l’hôpital. Ils portent chacun un nom de code et ne peuvent être trouvés qu’en résolvant des énigmes ou en collectant des indices laissés par le personnel avant l'évacuation.
                 </p> 

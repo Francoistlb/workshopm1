@@ -9,15 +9,16 @@
 .home_header{
     font-family: 'Press Start 2P', monospace;
     font-size: 32px;  
-    margin-left: 500px; 
     color:red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .home_container{
     width: 70%;
     border: 15px solid red;
     border-radius: 10px;
     margin: 0 auto;
-    padding: 10 10 10 10;
     animation: borderColorPulse 2s infinite;
 }
 .home_intro{
@@ -39,10 +40,9 @@
   text-shadow: 0 0 5px red;
   box-shadow: 0 0 10px red;
   transition: all 0.2s ease;
-  margin-left: 400px;
-  margin-right: 150px;
+  display: block;
+  margin: 0 auto;
   margin-bottom: 10px;
-
 }
 
 .game-button:hover {
