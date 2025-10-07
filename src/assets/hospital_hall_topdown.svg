@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <!-- Light hospital palette -->
+    <linearGradient id="tileGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eef5ff"/>
+      <stop offset="100%" stop-color="#dfefff"/>
+    </linearGradient>
+    <pattern id="tiles" width="64" height="64" patternUnits="userSpaceOnUse">
+      <rect width="64" height="64" fill="url(#tileGrad)"/>
+      <path d="M0 0H64M0 32H64M0 64H64M0 0V64M32 0V64M64 0V64" stroke="#c8d8ea" stroke-width="2"/>
+    </pattern>
+    <filter id="shadowSm" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+    <filter id="shadowMd" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Floor -->
+  <rect x="0" y="0" width="1000" height="1000" fill="url(#tiles)"/>
+
+  <!-- Reception desk (top-down) -->
+  <g filter="url(#shadowMd)" transform="translate(300,120)">
+    <rect x="0" y="0" width="400" height="90" rx="8" fill="#e3eef9" stroke="#b5c9dd" stroke-width="3"/>
+    <rect x="15" y="20" width="90" height="50" rx="6" fill="#cfe1f2"/>
+    <rect x="295" y="20" width="90" height="50" rx="6" fill="#cfe1f2"/>
+    <rect x="130" y="14" width="140" height="62" rx="6" fill="#ffffff" stroke="#c9d7e6"/>
+    <circle cx="200" cy="45" r="8" fill="#6aa9ff"/>
+  </g>
+
+  <!-- Benches -->
+  <g filter="url(#shadowSm)">
+    <rect x="140" y="280" width="220" height="36" rx="6" fill="#cfe1f2" stroke="#b3c6da"/>
+    <rect x="640" y="280" width="220" height="36" rx="6" fill="#cfe1f2" stroke="#b3c6da"/>
+    <rect x="140" y="336" width="220" height="36" rx="6" fill="#cfe1f2" stroke="#b3c6da"/>
+    <rect x="640" y="336" width="220" height="36" rx="6" fill="#cfe1f2" stroke="#b3c6da"/>
+  </g>
+
+  <!-- Plants -->
+  <g filter="url(#shadowSm)">
+    <circle cx="110" cy="160" r="34" fill="#8bd17c" stroke="#6fb864"/>
+    <rect x="90" y="180" width="40" height="18" rx="4" fill="#5d6f7f" stroke="#485866"/>
+    <circle cx="890" cy="160" r="34" fill="#8bd17c" stroke="#6fb864"/>
+    <rect x="870" y="180" width="40" height="18" rx="4" fill="#5d6f7f" stroke="#485866"/>
+  </g>
+
+  <!-- Wall cracks (tiny) -->
+  <g stroke="#9aaac0" stroke-width="2" stroke-linecap="round" opacity="0.6">
+    <path d="M160 120 l10 6 -6 8 12 4 -6 8" fill="none"/>
+    <path d="M820 120 l-12 8 10 6 -8 10 12 4" fill="none"/>
+    <path d="M500 260 l8 6 -6 8 10 6" fill="none"/>
+  </g>
+
+  <!-- Paper sheets on floor -->
+  <g fill="#ffffff" stroke="#cfd9e6" filter="url(#shadowSm)">
+    <polygon points="420,420 460,412 468,448 428,456"/>
+    <polygon points="520,460 556,450 566,486 530,496"/>
+    <polygon points="300,500 334,492 344,526 310,536"/>
+    <polygon points="680,520 712,510 724,544 690,554"/>
+  </g>
+
+  <!-- Direction arrows -->
+  <g fill="#b7c9dd" opacity="0.8">
+    <polygon points="500,620 520,660 480,660"/>
+    <rect x="494" y="660" width="12" height="60" rx="3"/>
+  </g>
+
+  <!-- Doors (top-down rectangles at edges) -->
+  <g filter="url(#shadowSm)">
+    <rect x="0" y="720" width="120" height="40" fill="#e9f2fb" stroke="#bccfe2"/>
+    <rect x="880" y="720" width="120" height="40" fill="#e9f2fb" stroke="#bccfe2"/>
+  </g>
+
+  <!-- Subtle vignette for depth (light theme) -->
+  <rect x="0" y="0" width="1000" height="1000" fill="#0d1b2a" opacity="0.06"/>
+</svg>
