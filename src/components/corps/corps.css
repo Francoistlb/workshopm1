@@ -1,0 +1,15 @@
+#body{
+    background-color: grey;
+    border: 5px solid red;
+    background-image: "https://images.vexels.com/media/users/3/141887/isolated/svg/4d03bd3580d707f3a684b0b0216f49c9.svg";
+    width: 100vw;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+#lungs, #liverandstomch, #kidneys {
+    display: flex;
+    justify-content: space-around;
+    width: 220px;
+}
