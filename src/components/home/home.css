@@ -1,0 +1,53 @@
+@keyframes borderColorPulse {
+  0%, 100% {
+    border-color: black;
+  }
+  50% {
+    border-color: red;
+  }
+}
+.home_header{
+    font-family: 'Press Start 2P', monospace;
+    font-size: 32px;  
+    margin-left: 500px; 
+    color:red;
+}
+.home_container{
+    width: 70%;
+    border: 15px solid red;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 10 10 10 10;
+    animation: borderColorPulse 2s infinite;
+}
+.home_intro{
+    color: red;
+    margin-left: 10px;
+    margin-right: auto;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+}
+.game-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  color: red;
+  background-color: #000;
+  border: 3px solid red;
+  padding: 12px 24px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px red;
+  box-shadow: 0 0 10px red;
+  transition: all 0.2s ease;
+  margin-left: 400px;
+  margin-right: 150px;
+  margin-bottom: 10px;
+
+}
+
+.game-button:hover {
+  background-color: transparent;
+  color: #000;
+  box-shadow: 0 0 20px red;
+}
+
