@@ -66,3 +66,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+body {
+  
+  background-image: url('/panel.jpg');
+  margin: 0;
+  padding: 0;
+  background-size: cover;        /* Remplit tout l’écran */
+  background-position: center;   /* Centre l’image */
+  background-repeat: no-repeat;  /* Pas de répétition */
+  font-family: sans-serif;
+}
