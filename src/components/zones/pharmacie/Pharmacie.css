@@ -1,0 +1,265 @@
+/* Styles pour la zone pharmacie */
+.pharmacie-zone {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pharmacie-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Zones de collision invisibles */
+.collision-counter {
+  position: absolute;
+  left: 180px;
+  top: 200px;
+  width: 140px;
+  height: 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-left-shelves {
+  position: absolute;
+  left: 40px;
+  top: 80px;
+  width: 25px;
+  height: 260px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-right-shelves {
+  position: absolute;
+  left: 435px;
+  top: 80px;
+  width: 25px;
+  height: 260px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-fridge {
+  position: absolute;
+  left: 80px;
+  top: 380px;
+  width: 60px;
+  height: 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Éléments interactifs */
+
+/* Terminal informatique */
+.computer-terminal {
+  position: absolute;
+  left: 280px;
+  top: 160px;
+  width: 35px;
+  height: 25px;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.computer-screen {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 255, 0.3);
+  border: 2px solid #008B8B;
+  border-radius: 3px;
+}
+
+/* Balance de précision */
+.precision-balance {
+  position: absolute;
+  left: 200px;
+  top: 152px;
+  width: 30px;
+  height: 23px;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.balance-plate {
+  width: 100%;
+  height: 100%;
+  background: rgba(192, 192, 192, 0.8);
+  border: 2px solid #808080;
+  border-radius: 50%;
+}
+
+/* Réfrigérateur médical */
+.medical-fridge {
+  position: absolute;
+  left: 80px;
+  top: 380px;
+  width: 60px;
+  height: 80px;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.fridge-door {
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 248, 255, 0.3);
+  border: 3px solid #4169E1;
+  border-radius: 5px;
+}
+
+/* Mortier et pilon */
+.mortar-pestle {
+  position: absolute;
+  left: 318px;
+  top: 158px;
+  width: 24px;
+  height: 24px;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mortar-bowl {
+  width: 100%;
+  height: 100%;
+  background: rgba(105, 105, 105, 0.5);
+  border: 2px solid #2F2F2F;
+  border-radius: 50%;
+}
+
+/* Étagères gauche */
+.left-shelf {
+  position: absolute;
+  left: 40px;
+  top: 80px;
+  width: 25px;
+  height: 260px;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.left-shelf .shelf-medicines {
+  width: 100%;
+  height: 100%;
+  background: rgba(210, 180, 140, 0.3);
+  border: 2px solid #A0522D;
+  border-radius: 2px;
+}
+
+/* Étagères droite */
+.right-shelf {
+  position: absolute;
+  left: 435px;
+  top: 80px;
+  width: 25px;
+  height: 260px;
+  z-index: 30;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.right-shelf .shelf-medicines {
+  width: 100%;
+  height: 100%;
+  background: rgba(210, 180, 140, 0.3);
+  border: 2px solid #A0522D;
+  border-radius: 2px;
+}
+
+/* États interactifs - seulement quand le joueur est proche */
+.interactive {
+  cursor: pointer;
+  pointer-events: auto !important;
+}
+
+.interactive:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.interactive:active {
+  transform: scale(0.95);
+}
+
+/* États non-interactifs - quand le joueur est loin */
+.non-interactive {
+  cursor: default;
+  opacity: 0.7;
+  pointer-events: auto !important;
+}
+
+/* Styles spéciaux pour la porte de sortie */
+.porte-ouverte.non-interactive {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+}
+
+.porte-ouverte.interactive {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.porte-ouverte.interactive:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 0, 0.8));
+}
+
+/* Effets spéciaux pour chaque élément interactif */
+.computer-terminal.interactive:hover {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8));
+}
+
+.precision-balance.interactive:hover {
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+.medical-fridge.interactive:hover {
+  filter: drop-shadow(0 0 10px rgba(65, 105, 225, 0.8));
+}
+
+.mortar-pestle.interactive:hover {
+  filter: drop-shadow(0 0 10px rgba(105, 105, 105, 0.8));
+}
+
+.left-shelf.interactive:hover,
+.right-shelf.interactive:hover {
+  filter: drop-shadow(0 0 10px rgba(160, 82, 45, 0.8));
+}
+
+/* Effets d'activation */
+.computer-terminal.interactive:hover .computer-screen {
+  background: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.precision-balance.interactive:hover .balance-plate {
+  background: rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.medical-fridge.interactive:hover .fridge-door {
+  background: rgba(240, 248, 255, 0.6);
+  box-shadow: 0 0 15px rgba(65, 105, 225, 0.5);
+}
+
+.mortar-pestle.interactive:hover .mortar-bowl {
+  background: rgba(105, 105, 105, 0.8);
+  box-shadow: 0 0 15px rgba(105, 105, 105, 0.5);
+}
+
+.left-shelf.interactive:hover .shelf-medicines,
+.right-shelf.interactive:hover .shelf-medicines {
+  background: rgba(210, 180, 140, 0.6);
+  box-shadow: 0 0 15px rgba(160, 82, 45, 0.5);
+}

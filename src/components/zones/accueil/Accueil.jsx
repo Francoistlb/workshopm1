@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import './Accueil.css'
 
-function Accueil({ playerPosition, setPlayerPosition, onReturnToCorridor }) {
+function Accueil({ playerPosition, setPlayerPosition, onGoToCorridor }) {
   const [showTerminal, setShowTerminal] = useState(false)
   const [showWhiteboard, setShowWhiteboard] = useState(false)
   const [showFolder1, setShowFolder1] = useState(false)
   const [showFolder2, setShowFolder2] = useState(false)
   const [showFolder3, setShowFolder3] = useState(false)
   const [showFolder4, setShowFolder4] = useState(false)
+  const [terminalCode, setTerminalCode] = useState('')
+  const [showDoorOpen, setShowDoorOpen] = useState(false)
 
   // Vérification de proximité - exactement comme dans l'original
   const isPlayerNear = (elementX, elementY, threshold = 60) => {
@@ -24,7 +26,36 @@ function Accueil({ playerPosition, setPlayerPosition, onReturnToCorridor }) {
       return
     }
     console.log('Terminal activé !')
-    setShowTerminal(!showTerminal)
+    setShowTerminal(true)
+    setTerminalCode('')
+    setShowDoorOpen(false)
+  }
+
+  const handleCodeSubmit = () => {
+    if (terminalCode === '0000') {
+      console.log('Code correct ! Porte déverrouillée !')
+      setShowDoorOpen(true)
+      setShowTerminal(false) // Fermer la modale
+      alert('✅ Code correct ! La porte s\'est déverrouillée à côté du terminal !')
+    } else {
+      console.log('Code incorrect !')
+      alert('❌ Code incorrect ! Réessayez...')
+      setTerminalCode('')
+    }
+  }
+
+  const handleDoorClick = () => {
+    if (!showDoorOpen) return
+    
+    if (!isPlayerNear(280, 69)) {
+      console.log('Vous devez vous approcher de la porte !')
+      return
+    }
+    
+    console.log('Accès au couloir !')
+    setShowTerminal(false)
+    setShowDoorOpen(false)
+    onGoToCorridor()
   }
 
   const handleWhiteboardClick = () => {
@@ -86,6 +117,21 @@ function Accueil({ playerPosition, setPlayerPosition, onReturnToCorridor }) {
           draggable={false}
         />
       </div>
+
+      {/* Porte d'accès au couloir - apparaît après validation du code */}
+      {showDoorOpen && (
+        <div 
+          className={`door-access ${isPlayerNear(280, 69) ? 'interactive' : 'non-interactive'}`}
+          onClick={handleDoorClick}
+          title={isPlayerNear(280, 69) ? "Porte déverrouillée - Cliquez pour accéder au couloir" : "Approchez-vous de la porte"}
+        >
+          <img 
+            src={new URL('../../plateau/assets/porteouverte.png', import.meta.url).href}
+            alt="Porte ouverte vers le couloir"
+            draggable={false}
+          />
+        </div>
+      )}
       
       <div 
         className={`whiteboard-tablet ${isPlayerNear(252.5, 227.5) ? 'interactive' : 'non-interactive'}`}
@@ -193,6 +239,50 @@ function Accueil({ playerPosition, setPlayerPosition, onReturnToCorridor }) {
       <div className="collision-corridor"></div>
       <div className="collision-bench-left"></div>
       <div className="collision-bench-right"></div>
+
+      {/* Modale Terminal */}
+      {showTerminal && (
+        <div className="terminal-modal">
+          <div className="terminal-modal-content">
+            <div className="terminal-header">
+              <h3>🖥️ Terminal de Sécurité</h3>
+              <button 
+                className="terminal-close"
+                onClick={() => setShowTerminal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="terminal-interface">
+              <div className="terminal-screen">
+                <p>SYSTÈME DE SÉCURITÉ ACTIVÉ</p>
+                <p>Veuillez saisir le code d'accès :</p>
+                <div className="code-input-container">
+                  <input
+                    type="password"
+                    value={terminalCode}
+                    onChange={(e) => setTerminalCode(e.target.value)}
+                    maxLength={4}
+                    placeholder="****"
+                    className="code-input"
+                    autoFocus
+                  />
+                  <button 
+                    onClick={handleCodeSubmit}
+                    className="submit-code-btn"
+                  >
+                    VALIDER
+                  </button>
+                </div>
+                <div className="terminal-hint">
+                  💡 Indice : Cherchez dans les dossiers...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

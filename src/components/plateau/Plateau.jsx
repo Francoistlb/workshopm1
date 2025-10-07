@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react'
 import './Plateau.css'
 import Accueil from '../zones/accueil/Accueil'
 import Couloir from '../zones/couloir/Couloir'
+import Pharmacie from '../zones/pharmacie/Pharmacie'
 
 function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', onReturnHome }) {
-  const [playerPosition, setPlayerPosition] = useState({ x: 250, y: 450 }) // Position initiale au bas du couloir
-  const [currentRoom, setCurrentRoom] = useState('couloir') // couloir, hospital-shop, orthopedics, etc.
+  const [playerPosition, setPlayerPosition] = useState({ x: 250, y: 400 }) // Position initiale dans l'accueil
+  const [currentRoom, setCurrentRoom] = useState('accueil') // accueil en premier, puis couloir, hospital-shop, etc.
   
   // Définition des portes et leurs positions dans le couloir vertical
   const doors = [
-    { id: 'accueil', name: 'Hall d\'Accueil', x: 250, y: 450, emoji: '🏥' },
-    { id: 'hospital-shop', name: 'Hospital Shop', x: 100, y: 80, emoji: '🏪' },
-    { id: 'orthopedics', name: 'Orthopedics', x: 400, y: 80, emoji: '🦴' },
-    { id: 'pediatrics', name: 'Pediatrics', x: 100, y: 180, emoji: '👶' },
-    { id: 'radiology', name: 'Radiology', x: 400, y: 180, emoji: '📡' },
-    { id: 'reception', name: 'Outpatient Reception', x: 100, y: 280, emoji: '🏥' },
-    { id: 'internal-medicine', name: 'Internal Medicine', x: 400, y: 280, emoji: '💊' },
-    { id: 'gynecology', name: 'Gynecology', x: 250, y: 380, emoji: '🩺' },
+    { id: 'accueil', name: 'Hall d\'Accueil', x: 250, y: 420, emoji: '🏥' },
+    { id: 'pharmacie', name: 'Pharmacie', x: 80, y: 60, emoji: '💊' },
+    { id: 'orthopedics', name: 'Orthopedics', x: 420, y: 60, emoji: '🦴' },
+    { id: 'pediatrics', name: 'Pediatrics', x: 80, y: 160, emoji: '👶' },
+    { id: 'radiology', name: 'Radiology', x: 420, y: 160, emoji: '📡' },
+    { id: 'reception', name: 'Outpatient Reception', x: 80, y: 260, emoji: '🏥' },
+    { id: 'internal-medicine', name: 'Internal Medicine', x: 420, y: 260, emoji: '🦴' },
   ]
 
   // Données par défaut pour les tests
@@ -73,6 +73,34 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
       }
       
       return false
+    } else if (currentRoom === 'pharmacie') {
+      // Collisions pour la zone pharmacie - coordonnées du CSS
+      
+      // Comptoir central (left: 180px, top: 200px, width: 140px, height: 80px)
+      if (x + playerRadius > 180 && x - playerRadius < 180 + 140 && 
+          y + playerRadius > 200 && y - playerRadius < 200 + 80) {
+        return true
+      }
+      
+      // Étagères gauche (left: 40px, top: 80px, width: 25px, height: 260px)
+      if (x + playerRadius > 40 && x - playerRadius < 40 + 25 && 
+          y + playerRadius > 80 && y - playerRadius < 80 + 260) {
+        return true
+      }
+      
+      // Étagères droite (left: 435px, top: 80px, width: 25px, height: 260px)
+      if (x + playerRadius > 435 && x - playerRadius < 435 + 25 && 
+          y + playerRadius > 80 && y - playerRadius < 80 + 260) {
+        return true
+      }
+      
+      // Réfrigérateur (left: 80px, top: 380px, width: 60px, height: 80px)
+      if (x + playerRadius > 80 && x - playerRadius < 80 + 60 && 
+          y + playerRadius > 380 && y - playerRadius < 380 + 80) {
+        return true
+      }
+      
+      return false
     }
     
     // Pas de collision par défaut
@@ -93,19 +121,21 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
     // Repositionner le joueur selon la salle
     if (roomId === 'accueil') {
       setPlayerPosition({ x: 250, y: 400 })
-    } else {
+    } else if (roomId === 'couloir') {
       setPlayerPosition({ x: 250, y: 450 })
+    } else {
+      setPlayerPosition({ x: 250, y: 250 }) // Position par défaut pour les autres salles
     }
   }
 
-  const handleReturnToCorridor = () => {
-    setCurrentRoom('couloir')
-    setPlayerPosition({ x: 250, y: 450 })
+  const handleReturnToAccueil = () => {
+    setCurrentRoom('accueil')
+    setPlayerPosition({ x: 250, y: 400 })
   }
 
-  const returnToCorridor = () => {
-    setCurrentRoom('couloir')
-    setPlayerPosition({ x: 250, y: 450 }) // Retour au centre du couloir
+  const returnToAccueil = () => {
+    setCurrentRoom('accueil')
+    setPlayerPosition({ x: 250, y: 400 }) // Retour au centre de l'accueil
   }
 
   // Handle keyboard input for player movement
@@ -180,6 +210,36 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             hasCollision = true
             console.log('Collision avec les murs du couloir')
           }
+        } else if (currentRoom === 'pharmacie') {
+          console.log(`Vérification collision pharmacie à (${newX}, ${newY})`)
+          
+          // Comptoir central (left: 180px, top: 200px, width: 140px, height: 80px)
+          if (newX + playerRadius > 180 && newX - playerRadius < 320 && 
+              newY + playerRadius > 200 && newY - playerRadius < 280) {
+            hasCollision = true
+            console.log('Collision avec le comptoir')
+          }
+          
+          // Étagères gauche (left: 40px, top: 80px, width: 25px, height: 260px)
+          if (newX + playerRadius > 40 && newX - playerRadius < 65 && 
+              newY + playerRadius > 80 && newY - playerRadius < 340) {
+            hasCollision = true
+            console.log('Collision avec les étagères gauche')
+          }
+          
+          // Étagères droite (left: 435px, top: 80px, width: 25px, height: 260px)
+          if (newX + playerRadius > 435 && newX - playerRadius < 460 && 
+              newY + playerRadius > 80 && newY - playerRadius < 340) {
+            hasCollision = true
+            console.log('Collision avec les étagères droite')
+          }
+          
+          // Réfrigérateur (left: 80px, top: 380px, width: 60px, height: 80px)
+          if (newX + playerRadius > 80 && newX - playerRadius < 140 && 
+              newY + playerRadius > 380 && newY - playerRadius < 460) {
+            hasCollision = true
+            console.log('Collision avec le réfrigérateur')
+          }
         }
         
         if (hasCollision) {
@@ -202,7 +262,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
         <Accueil 
           playerPosition={playerPosition}
           setPlayerPosition={setPlayerPosition}
-          onReturnToCorridor={() => setCurrentRoom('couloir')}
+          onGoToCorridor={() => setCurrentRoom('couloir')}
         />
       )
     } else if (currentRoom === 'couloir') {
@@ -212,6 +272,18 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
           onEnterRoom={(roomId) => {
             setCurrentRoom(roomId)
             if (roomId === 'accueil') setPlayerPosition({ x: 250, y: 400 })
+            else if (roomId === 'pharmacie') setPlayerPosition({ x: 250, y: 400 })
+          }}
+        />
+      )
+    } else if (currentRoom === 'pharmacie') {
+      return (
+        <Pharmacie 
+          playerPosition={playerPosition}
+          setPlayerPosition={setPlayerPosition}
+          onReturnToAccueil={() => {
+            setCurrentRoom('couloir')
+            setPlayerPosition({ x: 250, y: 300 })
           }}
         />
       )
@@ -221,7 +293,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
         <div style={{ padding: '20px', textAlign: 'center' }}>
           <h2>🚧 {currentRoom}</h2>
           <p>Cette salle n'est pas encore implémentée</p>
-          <button onClick={() => setCurrentRoom('couloir')}>← Retour au couloir</button>
+          <button onClick={() => setCurrentRoom('accueil')}>← Retour à l'accueil</button>
         </div>
       )
     }
@@ -243,7 +315,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             {defaultPlayers.map((player) => (
               <div key={player.id} className="player-sidebar-item">
                 <span className="player-sidebar-name">
-                  {player.isHost && '� '}
+                  {player.isHost && ' '}
                   {player.name}
                 </span>
                 <span className="player-sidebar-status">
@@ -262,7 +334,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
         </div>
 
         <div className="interface-section">
-          <h3>�🗺️ Carte de l'Hôpital</h3>
+          <h3> 🗺️ Carte de l'Hôpital</h3>
           <div className="hospital-map">
             <img
               src={new URL('../../assets/hospital_floorplan_topdown.svg', import.meta.url).href}

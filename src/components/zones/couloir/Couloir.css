@@ -52,12 +52,12 @@
   z-index: 2;
 }
 
-/* Portes */
+/* Portes - Style plus réaliste et intégré dans les murs */
 .door {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  z-index: 10;
+  width: 80px;
+  height: 100px;
+  z-index: 15;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -65,14 +65,46 @@
 .door-frame {
   width: 100%;
   height: 100%;
-  background: #8B4513;
-  border: 3px solid #654321;
-  border-radius: 8px;
+  background: linear-gradient(180deg, #8B4513 0%, #654321 50%, #4A2C17 100%);
+  border: 2px solid #2F1B0C;
+  border-radius: 12px 12px 4px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* Ajout d'une poignée de porte */
+.door-frame::before {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #FFD700;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Bordure d'encadrement de porte */
+.door-frame::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 3px solid #999;
+  border-radius: 15px 15px 8px 8px;
+  background: linear-gradient(180deg, #ddd 0%, #bbb 100%);
+  z-index: -1;
 }
 
 .door-emoji {
@@ -92,23 +124,40 @@
 
 /* États des portes */
 .door.interactive {
-  transform: scale(1.1);
-  filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+  transform: scale(1.05);
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
 }
 
 .door.interactive .door-frame {
-  background: #DAA520;
-  border-color: #B8860B;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(180deg, #DAA520 0%, #B8860B 50%, #8B6914 100%);
+  border-color: #FFD700;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.5),
+    inset 0 2px 6px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.door.interactive .door-frame::before {
+  background: #FFE55C;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
 }
 
 .door.non-interactive {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .door.interactive:hover {
-  transform: scale(1.2);
-  filter: brightness(1.4) drop-shadow(0 0 15px rgba(255, 215, 0, 1));
+  transform: scale(1.1);
+  filter: brightness(1.3) drop-shadow(0 0 25px rgba(255, 215, 0, 0.9));
+}
+
+.door.interactive:hover .door-frame {
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.6),
+    inset 0 3px 8px rgba(255, 255, 255, 0.3),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.5);
 }
 
 /* Éléments décoratifs */

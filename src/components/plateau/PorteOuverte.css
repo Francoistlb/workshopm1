@@ -1,0 +1,33 @@
+/* Styles pour le composant PorteOuverte */
+.porte-ouverte {
+  user-select: none;
+}
+
+.porte-ouverte:hover {
+  transform: scale(1.05);
+}
+
+.porte-ouverte:active {
+  transform: scale(0.95);
+}
+
+/* Variantes de style */
+.porte-ouverte.interactive {
+  cursor: pointer;
+}
+
+.porte-ouverte.interactive:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.porte-ouverte.glow-green {
+  filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
+}
+
+.porte-ouverte.glow-blue {
+  filter: drop-shadow(0 0 15px rgba(0, 150, 255, 0.6));
+}
+
+.porte-ouverte.glow-gold {
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+}
