@@ -1,0 +1,262 @@
+/* Styles pour la zone d'accueil - EXACTEMENT copiés de Plateau.css original */
+.accueil-zone {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Zones de collision invisibles */
+.collision-reception {
+  position: absolute;
+  left: 90px;
+  top: 180px;
+  width: 320px;
+  height: 70px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-corridor {
+  position: absolute;
+  left: 180px;
+  top: 24px;
+  width: 140px;
+  height: 56px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-bench-left {
+  position: absolute;
+  left: 40px;
+  top: 260px;
+  width: 150px;
+  height: 56px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-bench-right {
+  position: absolute;
+  left: 310px;
+  top: 260px;
+  width: 150px;
+  height: 56px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Terminal Calculator on Reception */
+.terminal-calculator {
+  position: absolute;
+  left: 200px;
+  top: 50px;
+  width: 25px;
+  height: 38px;
+  z-index: 30;
+  transition: all 0.2s ease;
+}
+
+/* Whiteboard Tablet on Reception */
+.whiteboard-tablet {
+  position: absolute;
+  left: 210px;
+  top: 195px;
+  width: 85px;
+  height: 65px;
+  z-index: 30;
+  transition: all 0.2s ease;
+}
+
+/* Folders on Reception - positioned around the area */
+.folder-1 {
+  position: absolute;
+  left: 70px;
+  top: 230px;
+  width: 30px;
+  height: 25px;
+  z-index: 30;
+  transition: all 0.2s ease;
+}
+
+.folder-2 {
+  position: absolute;
+  left: 400px;
+  top: 230px;
+  width: 30px;
+  height: 25px;
+  z-index: 30;
+  transition: all 0.2s ease;
+}
+
+.folder-3 {
+  position: absolute;
+  left: 300px;
+  top: 155px;
+  width: 30px;
+  height: 25px;
+  z-index: 30;
+  transition: all 0.2s ease;
+}
+
+.folder-4 {
+  position: absolute;
+  left: 160px;
+  top: 155px;
+  width: 30px;
+  height: 25px;
+  z-index: 30;
+  transition: all 0.2s ease;
+}
+
+/* États interactifs - seulement quand le joueur est proche */
+.interactive {
+  cursor: pointer;
+  pointer-events: auto !important;
+}
+
+.interactive:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.interactive:active {
+  transform: scale(0.95);
+}
+
+/* États non-interactifs - quand le joueur est loin */
+.non-interactive {
+  cursor: default;
+  opacity: 0.7;
+  pointer-events: auto !important;
+}
+
+/* Hover spécial pour les dossiers quand interactifs */
+.folder-1.interactive:hover, .folder-2.interactive:hover, 
+.folder-3.interactive:hover, .folder-4.interactive:hover {
+  transform: scale(1.15);
+}
+
+/* Images communes pour tous les éléments interactifs */
+.terminal-calculator img, .whiteboard-tablet img,
+.folder-1 img, .folder-2 img, .folder-3 img, .folder-4 img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Éléments décoratifs - positionnement exact de l'original */
+/* Fissures */
+.decore-crack1 {
+  position: absolute;
+  left: 30px;
+  top: 60px;
+  width: 80px;
+  height: 40px;
+  z-index: 5;
+}
+
+.decore-crack2 {
+  position: absolute;
+  left: 420px;
+  top: 340px;
+  width: 18px;
+  height: 12px;
+  z-index: 5;
+}
+
+/* Documents (avec curseur pointer) */
+.decore-doc1 {
+  position: absolute;
+  left: 400px;
+  top: 420px;
+  width: 25px;
+  height: 20px;
+  z-index: 8;
+}
+
+.decore-doc2 {
+  position: absolute;
+  left: 450px;
+  top: 280px;
+  width: 22px;
+  height: 18px;
+  z-index: 8;
+}
+
+.decore-doc3 {
+  position: absolute;
+  left: 60px;
+  top: 300px;
+  width: 24px;
+  height: 19px;
+  z-index: 8;
+}
+
+/* Papiers */
+.decore-papier1 {
+  position: absolute;
+  left: 380px;
+  top: 120px;
+  width: 16px;
+  height: 12px;
+  z-index: 6;
+}
+
+.decore-papier2 {
+  position: absolute;
+  left: 150px;
+  top: 440px;
+  width: 18px;
+  height: 14px;
+  z-index: 6;
+}
+
+/* Plantes */
+.decore-plante1 {
+  position: absolute;
+  left: 25px;
+  top: 200px;
+  width: 20px;
+  height: 15px;
+  z-index: 7;
+}
+
+.decore-plante2 {
+  position: absolute;
+  left: 460px;
+  top: 380px;
+  width: 28px;
+  height: 32px;
+  z-index: 7;
+}
+
+/* Sang */
+.decore-sang1 {
+  position: absolute;
+  left: 200px;
+  top: 380px;
+  width: 20px;
+  height: 15px;
+  z-index: 6;
+}
+
+.decore-sang2 {
+  position: absolute;
+  left: 280px;
+  top: 100px;
+  width: 20px;
+  height: 15px;
+  z-index: 6;
+}
+
+/* Images communes pour tous les éléments décoratifs */
+.decore-crack1 img, .decore-crack2 img,
+.decore-doc1 img, .decore-doc2 img, .decore-doc3 img,
+.decore-papier1 img, .decore-papier2 img, .decore-sang2 img,
+.decore-plante1 img, .decore-plante2 img,
+.decore-sang1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

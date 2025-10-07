@@ -22,6 +22,69 @@
   max-height: calc(100vh - 20px);
 }
 
+/* Section joueurs dans la sidebar */
+.session-info {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.session-code-small {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #495057;
+  font-weight: bold;
+}
+
+.players-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.player-sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.player-sidebar-item:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.player-sidebar-item.empty {
+  opacity: 0.6;
+  background: #f1f3f4;
+  border-style: dashed;
+}
+
+.player-sidebar-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #495057;
+  flex: 1;
+}
+
+.player-sidebar-item.empty .player-sidebar-name {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.player-sidebar-status {
+  font-size: 10px;
+  margin-left: 5px;
+}
+
 .interface-section {
   margin-bottom: 20px;
   padding-bottom: 15px;
@@ -37,6 +100,34 @@
   color: #2c3e50;
   font-size: 14px;
   font-weight: bold;
+}
+
+/* Header du jeu */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.return-home-button {
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  padding: 8px 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dee2e6;
+  color: #495057;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.return-home-button:hover {
+  background: #f8f9fa;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
 }
 
 /* Carte de l'hôpital */
