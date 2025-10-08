@@ -1,6 +1,6 @@
 #body{
     background-color: rgba(255,255,255,0.5);
-    background-image: url("https://static.thenounproject.com/png/481935-200.png");
+    background-image: url("src/assets/organs/body.png");
     background-repeat: no-repeat;
     background-size: 100% 150%;
     width: 60vw;
@@ -16,7 +16,7 @@
 #lungs, #liverandstomch, #kidneys {
     display: flex;
     justify-content: space-around;
-    width: 220px;
+    width: match-content;
 }
 
 #answer{
