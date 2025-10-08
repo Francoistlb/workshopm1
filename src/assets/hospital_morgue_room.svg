@@ -1,0 +1,186 @@
+<!-- filepath: c:\Users\franc\EPSI\M1\workshop\workshopm1\src\assets\hospital_morgue_room.svg -->
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sol carrelé froid -->
+  <defs>
+    <pattern id="morgueFloor" patternUnits="userSpaceOnUse" width="40" height="40">
+      <rect width="40" height="40" fill="#e8eef0"/>
+      <rect width="38" height="38" x="1" y="1" fill="#f8f9fa" stroke="#d6dbdf" stroke-width="0.5"/>
+    </pattern>
+    
+    <!-- Gradient pour l'éclairage froid -->
+    <linearGradient id="coldLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8f4f8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fond -->
+  <rect width="500" height="500" fill="url(#morgueFloor)"/>
+  
+  <!-- Murs -->
+  <rect x="0" y="0" width="500" height="20" fill="#bdc3c7"/>
+  <rect x="0" y="480" width="500" height="20" fill="#bdc3c7"/>
+  <rect x="0" y="0" width="20" height="500" fill="#bdc3c7"/>
+  <rect x="480" y="0" width="20" height="500" fill="#bdc3c7"/>
+  
+  <!-- Mur de séparation avec tiroirs mortuaires -->
+  <rect x="300" y="20" width="180" height="200" fill="#95a5a6" stroke="#7f8c8d" stroke-width="2"/>
+  
+  <!-- Tiroirs mortuaires (3x2 = 6 tiroirs) -->
+  <!-- Rangée du haut -->
+  <rect x="310" y="40" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="315" y="60" width="40" height="5" fill="#34495e"/>
+  <circle cx="350" cy="55" r="3" fill="#2c3e50"/>
+  
+  <rect x="370" y="40" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="375" y="60" width="40" height="5" fill="#34495e"/>
+  <circle cx="410" cy="55" r="3" fill="#2c3e50"/>
+  
+  <rect x="430" y="40" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="435" y="60" width="40" height="5" fill="#34495e"/>
+  <circle cx="470" cy="55" r="3" fill="#2c3e50"/>
+  
+  <!-- Rangée du milieu -->
+  <rect x="310" y="80" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="315" y="100" width="40" height="5" fill="#34495e"/>
+  <circle cx="350" cy="95" r="3" fill="#2c3e50"/>
+  
+  <rect x="370" y="80" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="375" y="100" width="40" height="5" fill="#34495e"/>
+  <circle cx="410" cy="95" r="3" fill="#2c3e50"/>
+  
+  <rect x="430" y="80" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="435" y="100" width="40" height="5" fill="#34495e"/>
+  <circle cx="470" cy="95" r="3" fill="#2c3e50"/>
+  
+  <!-- Rangée du bas -->
+  <rect x="310" y="120" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="315" y="140" width="40" height="5" fill="#34495e"/>
+  <circle cx="350" cy="135" r="3" fill="#2c3e50"/>
+  
+  <rect x="370" y="120" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="375" y="140" width="40" height="5" fill="#34495e"/>
+  <circle cx="410" cy="135" r="3" fill="#2c3e50"/>
+  
+  <rect x="430" y="120" width="50" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="435" y="140" width="40" height="5" fill="#34495e"/>
+  <circle cx="470" cy="135" r="3" fill="#2c3e50"/>
+  
+  <!-- Table d'autopsie centrale -->
+  <rect x="180" y="200" width="120" height="60" fill="#ffffff" stroke="#bdc3c7" stroke-width="3"/>
+  <rect x="185" y="205" width="110" height="50" fill="#f8f9fa"/>
+  <!-- Pieds de table -->
+  <rect x="185" y="260" width="8" height="25" fill="#95a5a6"/>
+  <rect x="287" y="260" width="8" height="25" fill="#95a5a6"/>
+  
+  <!-- Évacuation sous la table -->
+  <circle cx="250" cy="280" r="8" fill="#34495e"/>
+  <circle cx="250" cy="280" r="5" fill="#2c3e50"/>
+  
+  <!-- Chariot d'instruments -->
+  <rect x="80" y="180" width="60" height="40" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="85" y="185" width="50" height="30" fill="#ffffff"/>
+  <!-- Roues -->
+  <circle cx="90" cy="230" r="6" fill="#34495e"/>
+  <circle cx="130" cy="230" r="6" fill="#34495e"/>
+  
+  <!-- Instruments sur le chariot -->
+  <rect x="90" y="190" width="15" height="3" fill="#7f8c8d"/>
+  <rect x="110" y="190" width="20" height="3" fill="#7f8c8d"/>
+  <circle cx="95" cy="200" r="3" fill="#95a5a6"/>
+  <circle cx="115" cy="200" r="3" fill="#95a5a6"/>
+  
+  <!-- Balance de précision -->
+  <rect x="350" y="320" width="50" height="30" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+  <rect x="355" y="325" width="40" height="20" fill="#5d6d7e"/>
+  <rect x="370" y="310" width="10" height="10" fill="#2c3e50"/>
+  
+  <!-- Évier médical profond -->
+  <rect x="30" y="300" width="80" height="40" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="35" y="305" width="70" height="30" fill="#ecf0f1"/>
+  <!-- Robinets -->
+  <rect x="50" y="290" width="6" height="15" fill="#95a5a6"/>
+  <rect x="80" y="290" width="6" height="15" fill="#95a5a6"/>
+  <circle cx="53" cy="285" r="4" fill="#7f8c8d"/>
+  <circle cx="83" cy="285" r="4" fill="#7f8c8d"/>
+  
+  <!-- Armoire de stockage réfrigérée -->
+  <rect x="30" y="100" width="100" height="150" fill="#d5dbdb" stroke="#85929e" stroke-width="3"/>
+  <rect x="35" y="105" width="90" height="140" fill="#eaeded"/>
+  <!-- Poignées -->
+  <rect x="25" y="130" width="8" height="4" fill="#34495e"/>
+  <rect x="25" y="180" width="8" height="4" fill="#34495e"/>
+  <rect x="25" y="220" width="8" height="4" fill="#34495e"/>
+  
+  <!-- Étagères dans l'armoire -->
+  <rect x="40" y="125" width="80" height="3" fill="#bdc3c7"/>
+  <rect x="40" y="155" width="80" height="3" fill="#bdc3c7"/>
+  <rect x="40" y="185" width="80" height="3" fill="#bdc3c7"/>
+  <rect x="40" y="215" width="80" height="3" fill="#bdc3c7"/>
+  
+  <!-- Flacons et échantillons -->
+  <rect x="45" y="130" width="8" height="15" fill="#3498db"/>
+  <rect x="60" y="130" width="8" height="15" fill="#e74c3c"/>
+  <rect x="75" y="130" width="8" height="15" fill="#f39c12"/>
+  <rect x="90" y="130" width="8" height="15" fill="#27ae60"/>
+  
+  <!-- Ordinateur de gestion -->
+  <rect x="380" y="400" width="60" height="40" fill="#2c3e50" stroke="#34495e" stroke-width="2"/>
+  <rect x="385" y="405" width="50" height="30" fill="#3498db"/>
+  <rect x="405" y="440" width="10" height="8" fill="#34495e"/>
+  
+  <!-- Clavier et souris -->
+  <rect x="385" y="450" width="30" height="8" fill="#95a5a6"/>
+  <rect x="420" y="452" width="8" height="4" fill="#7f8c8d"/>
+  
+  <!-- Système de ventilation -->
+  <rect x="200" y="20" width="80" height="15" fill="#85929e" stroke="#5d6d7e" stroke-width="1"/>
+  <rect x="210" y="25" width="15" height="5" fill="#34495e"/>
+  <rect x="235" y="25" width="15" height="5" fill="#34495e"/>
+  <rect x="260" y="25" width="15" height="5" fill="#34495e"/>
+  
+  <!-- Éclairage médical spécialisé -->
+  <circle cx="250" cy="50" r="25" fill="url(#coldLight)" stroke="#bdc3c7" stroke-width="2"/>
+  <circle cx="250" cy="50" r="15" fill="#ffffff"/>
+  <circle cx="250" cy="50" r="8" fill="#d6eaf8"/>
+  
+  <!-- Détecteur de fumée -->
+  <circle cx="400" cy="40" r="8" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="400" cy="40" r="4" fill="#ffffff"/>
+  
+  <!-- Thermomètre d'ambiance -->
+  <rect x="460" y="250" width="15" height="40" fill="#ffffff" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="465" y="255" width="5" height="30" fill="#3498db"/>
+  <circle cx="467" cy="285" r="4" fill="#e74c3c"/>
+  
+  <!-- Étiquettes de température -->
+  <text x="445" y="275" font-family="Arial" font-size="8" fill="#2c3e50">4°C</text>
+  
+  <!-- Poubelle médicale -->
+  <rect x="450" y="400" width="25" height="35" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <rect x="452" y="395" width="21" height="8" fill="#ec7063"/>
+  <text x="462" y="420" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">☣</text>
+  
+  <!-- Registre des entrées/sorties -->
+  <rect x="150" y="400" width="40" height="30" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+  <rect x="155" y="405" width="30" height="20" fill="#ffffff"/>
+  <line x1="160" y1="410" x2="180" y2="410" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="160" y1="415" x2="180" y2="415" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="160" y1="420" x2="180" y2="420" stroke="#2c3e50" stroke-width="1"/>
+  
+  <!-- Système d'alarme -->
+  <rect x="50" y="50" width="30" height="20" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="65" cy="60" r="5" fill="#ffffff"/>
+  <text x="65" y="65" font-family="Arial" font-size="8" fill="#e74c3c" text-anchor="middle">!</text>
+  
+  <!-- Interrupteur général -->
+  <rect x="450" y="350" width="20" height="30" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+  <rect x="455" y="360" width="10" height="8" fill="#28a745"/>
+  
+  <!-- Panneau d'avertissement -->
+  <rect x="20" y="380" width="50" height="60" fill="#f39c12" stroke="#e67e22" stroke-width="3"/>
+  <polygon points="45,390 35,410 55,410" fill="#2c3e50"/>
+  <text x="45" y="405" font-family="Arial" font-size="12" fill="#2c3e50" text-anchor="middle">!</text>
+  <text x="45" y="425" font-family="Arial" font-size="8" fill="#2c3e50" text-anchor="middle">ACCÈS</text>
+  <text x="45" y="435" font-family="Arial" font-size="8" fill="#2c3e50" text-anchor="middle">RESTREINT</text>
+</svg>

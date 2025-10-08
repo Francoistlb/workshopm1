@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react'
 import './Plateau.css'
-import Accueil from '../zones/accueil/Accueil'
 import Couloir from '../zones/couloir/Couloir'
+import Accueil from '../zones/accueil/Accueil'
+import Operation from '../zones/operation/Operation'
 import Pharmacie from '../zones/pharmacie/Pharmacie'
+import Consultation from '../zones/consultation/Consultation'
+import Morgue from '../zones/morgue/Morgue'
+import Stockage from '../zones/stockage/Stockage' // Ajouter l'import
 
 function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', onReturnHome }) {
-  const [playerPosition, setPlayerPosition] = useState({ x: 250, y: 400 }) // Position initiale dans l'accueil
-  const [currentRoom, setCurrentRoom] = useState('accueil') // accueil en premier, puis couloir, hospital-shop, etc.
-  
+  const [playerPosition, setPlayerPosition] = useState({ x: 250, y: 400 })
+  const [currentRoom, setCurrentRoom] = useState('accueil')
+
   // Définition des portes et leurs positions dans le couloir vertical
   const doors = [
     { id: 'accueil', name: 'Hall d\'Accueil', x: 250, y: 420, emoji: '🏥' },
     { id: 'pharmacie', name: 'Pharmacie', x: 80, y: 60, emoji: '💊' },
-    { id: 'orthopedics', name: 'Orthopedics', x: 420, y: 60, emoji: '🦴' },
-    { id: 'pediatrics', name: 'Pediatrics', x: 80, y: 160, emoji: '👶' },
+    { id: 'morgue', name: 'Morgue', x: 420, y: 60, emoji: '⚰️' },
     { id: 'radiology', name: 'Radiology', x: 420, y: 160, emoji: '📡' },
-    { id: 'reception', name: 'Outpatient Reception', x: 80, y: 260, emoji: '🏥' },
-    { id: 'internal-medicine', name: 'Internal Medicine', x: 420, y: 260, emoji: '🦴' },
+    { id: 'reception', name: 'Consultation', x: 80, y: 260, emoji: '🏥' },
+    { id: 'operation', name: 'Opération', x: 420, y: 260, emoji: '⚕️' },
   ]
 
   // Données par défaut pour les tests
@@ -44,6 +47,52 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
       if (x - playerRadius < 50 || x + playerRadius > 450) {
         return true
       }
+      return false
+    } else if (currentRoom === 'stockage') {
+      // Collisions pour la zone stockage selon le SVG
+      
+      // Étagères gauches (x="40" y="60" width="120" height="220")
+      if (x + playerRadius > 40 && x - playerRadius < 160 && 
+          y + playerRadius > 60 && y - playerRadius < 280) {
+        return true
+      }
+      
+      // Étagères droites (x="340" y="60" width="120" height="220")
+      if (x + playerRadius > 340 && x - playerRadius < 460 && 
+          y + playerRadius > 60 && y - playerRadius < 280) {
+        return true
+      }
+      
+      // Étagères centrales (x="200" y="80" width="100" height="30")
+      if (x + playerRadius > 200 && x - playerRadius < 300 && 
+          y + playerRadius > 80 && y - playerRadius < 110) {
+        return true
+      }
+      
+      // Étagères centrales 2 (x="200" y="130" width="100" height="30")
+      if (x + playerRadius > 200 && x - playerRadius < 300 && 
+          y + playerRadius > 130 && y - playerRadius < 160) {
+        return true
+      }
+      
+      // Table de préparation (x="180" y="200" width="140" height="60")
+      if (x + playerRadius > 180 && x - playerRadius < 320 && 
+          y + playerRadius > 200 && y - playerRadius < 260) {
+        return true
+      }
+      
+      // Coffre-fort médical (x="200" y="320" width="100" height="80")
+      if (x + playerRadius > 200 && x - playerRadius < 300 && 
+          y + playerRadius > 320 && y - playerRadius < 400) {
+        return true
+      }
+      
+      // Murs
+      if (x - playerRadius < 20 || x + playerRadius > 480 || 
+          y - playerRadius < 20 || y + playerRadius > 480) {
+        return true
+      }
+      
       return false
     } else if (currentRoom === 'accueil') {
       // Collisions pour la zone accueil - coordonnées EXACTES du CSS
@@ -88,7 +137,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
         return true
       }
       
-      // Étagères droite (left: 435px, top: 80px, width: 25px, height: 260px)
+      // Étagères droite (left: 435px, top: 80px, width: 25, height: 260px)
       if (x + playerRadius > 435 && x - playerRadius < 435 + 25 && 
           y + playerRadius > 80 && y - playerRadius < 80 + 260) {
         return true
@@ -97,6 +146,134 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
       // Réfrigérateur (left: 80px, top: 380px, width: 60px, height: 80px)
       if (x + playerRadius > 80 && x - playerRadius < 80 + 60 && 
           y + playerRadius > 380 && y - playerRadius < 380 + 80) {
+        return true
+      }
+      
+      return false
+    } else if (currentRoom === 'operation') {
+      // Collisions pour la zone operation selon le SVG réel
+      
+      // Table d'opération centrale (x="210" y="200" width="80" height="150")
+      if (x + playerRadius > 210 && x - playerRadius < 290 && 
+          y + playerRadius > 200 && y - playerRadius < 350) {
+        return true
+      }
+      
+      // Chariot d'anesthésie (x="120" y="200" width="50" height="70")
+      if (x + playerRadius > 120 && x - playerRadius < 170 && 
+          y + playerRadius > 200 && y - playerRadius < 270) {
+        return true
+      }
+      
+      // Aspirateur chirurgical (x="80" y="320" width="35" height="50")
+      if (x + playerRadius > 80 && x - playerRadius < 115 && 
+          y + playerRadius > 320 && y - playerRadius < 370) {
+        return true
+      }
+      
+      // Monitoring patient (x="320" y="180" width="60" height="40")
+      if (x + playerRadius > 320 && x - playerRadius < 380 && 
+          y + playerRadius > 180 && y - playerRadius < 220) {
+        return true
+      }
+      
+      // Électro-bistouri (x="300" y="280" width="40" height="30")
+      if (x + playerRadius > 300 && x - playerRadius < 340 && 
+          y + playerRadius > 280 && y - playerRadius < 310) {
+        return true
+      }
+      
+      // Défibrillateur (x="400" y="350" width="50" height="40")
+      if (x + playerRadius > 400 && x - playerRadius < 450 && 
+          y + playerRadius > 350 && y - playerRadius < 390) {
+        return true
+      }
+      
+      // Lavabos chirurgicaux (x="30" y="100" width="60" height="30")
+      if (x + playerRadius > 30 && x - playerRadius < 90 && 
+          y + playerRadius > 100 && y - playerRadius < 130) {
+        return true
+      }
+      
+      // Distributeur de gants (x="420" y="80" width="30" height="40")
+      if (x + playerRadius > 420 && x - playerRadius < 450 && 
+          y + playerRadius > 80 && y - playerRadius < 120) {
+        return true
+      }
+      
+      // Poubelle déchets médicaux (x="450" y="400" width="25" height="30")
+      if (x + playerRadius > 450 && x - playerRadius < 475 && 
+          y + playerRadius > 400 && y - playerRadius < 430) {
+        return true
+      }
+      
+      // Écran mural (x="20" y="30" width="80" height="50")
+      if (x + playerRadius > 20 && x - playerRadius < 100 && 
+          y + playerRadius > 30 && y - playerRadius < 80) {
+        return true
+      }
+      
+      return false
+    } else if (currentRoom === 'reception') {
+      // Collisions pour la zone consultation selon le SVG réel
+      
+      // Bureau du médecin (x="180" y="150" width="140" height="80")
+      if (x + playerRadius > 180 && x - playerRadius < 320 && 
+          y + playerRadius > 150 && y - playerRadius < 230) {
+        return true
+      }
+      
+      // Chaise du médecin (x="200" y="240" width="40" height="15" + pieds)
+      if (x + playerRadius > 200 && x - playerRadius < 240 && 
+          y + playerRadius > 240 && y - playerRadius < 285) {
+        return true
+      }
+      
+      // Chaise patient (x="260" y="80" width="40" height="15" + dossier)
+      if (x + playerRadius > 260 && x - playerRadius < 300 && 
+          y + playerRadius > 50 && y - playerRadius < 95) {
+        return true
+      }
+      
+      // Armoire médicale (x="30" y="100" width="60" height="120")
+      if (x + playerRadius > 30 && x - playerRadius < 90 && 
+          y + playerRadius > 100 && y - playerRadius < 220) {
+        return true
+      }
+      
+      // Table d'examen (x="350" y="200" width="100" height="60" + pieds)
+      if (x + playerRadius > 350 && x - playerRadius < 450 && 
+          y + playerRadius > 200 && y - playerRadius < 280) {
+        return true
+      }
+      
+      // Balance médicale (x="400" y="350" width="40" height="15")
+      if (x + playerRadius > 400 && x - playerRadius < 440 && 
+          y + playerRadius > 340 && y - playerRadius < 368) {
+        return true
+      }
+      
+      // Lavabo (x="450" y="80" width="30" height="20")
+      if (x + playerRadius > 450 && x - playerRadius < 480 && 
+          y + playerRadius > 75 && y - playerRadius < 100) {
+        return true
+      }
+      
+      // Distributeur de gants (x="420" y="120" width="25" height="30")
+      if (x + playerRadius > 420 && x - playerRadius < 445 && 
+          y + playerRadius > 120 && y - playerRadius < 150) {
+        return true
+      }
+      
+      // Tensiomètre (x="100" y="280" width="40" height="30")
+      if (x + playerRadius > 100 && x - playerRadius < 140 && 
+          y + playerRadius > 280 && y - playerRadius < 318) {
+        return true
+      }
+      
+      // Murs
+      if (x - playerRadius < 20 || x + playerRadius > 480 || 
+          y - playerRadius < 20 || y + playerRadius > 480) {
         return true
       }
       
@@ -131,11 +308,6 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
   const handleReturnToAccueil = () => {
     setCurrentRoom('accueil')
     setPlayerPosition({ x: 250, y: 400 })
-  }
-
-  const returnToAccueil = () => {
-    setCurrentRoom('accueil')
-    setPlayerPosition({ x: 250, y: 400 }) // Retour au centre de l'accueil
   }
 
   // Handle keyboard input for player movement
@@ -227,7 +399,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             console.log('Collision avec les étagères gauche')
           }
           
-          // Étagères droite (left: 435px, top: 80px, width: 25px, height: 260px)
+          // Étagères droite (left: 435px, top: 80px, width: 25, height: 260px)
           if (newX + playerRadius > 435 && newX - playerRadius < 460 && 
               newY + playerRadius > 80 && newY - playerRadius < 340) {
             hasCollision = true
@@ -239,6 +411,178 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
               newY + playerRadius > 380 && newY - playerRadius < 460) {
             hasCollision = true
             console.log('Collision avec le réfrigérateur')
+          }
+        } else if (currentRoom === 'operation') {
+          console.log(`Vérification collision operation à (${newX}, ${newY})`)
+          
+          // Table d'opération centrale
+          if (newX + playerRadius > 210 && newX - playerRadius < 290 && 
+              newY + playerRadius > 200 && newY - playerRadius < 350) {
+            hasCollision = true
+            console.log('Collision avec la table d\'opération')
+          }
+          
+          // Chariot d'anesthésie
+          if (newX + playerRadius > 120 && newX - playerRadius < 170 && 
+              newY + playerRadius > 200 && newY - playerRadius < 270) {
+            hasCollision = true
+            console.log('Collision avec le chariot d\'anesthésie')
+          }
+          
+          // Aspirateur chirurgical
+          if (newX + playerRadius > 80 && newX - playerRadius < 115 && 
+              newY + playerRadius > 320 && newY - playerRadius < 370) {
+            hasCollision = true
+            console.log('Collision avec l\'aspirateur chirurgical')
+          }
+          
+          // Monitoring patient
+          if (newX + playerRadius > 320 && newX - playerRadius < 380 && 
+              newY + playerRadius > 180 && newY - playerRadius < 220) {
+            hasCollision = true
+            console.log('Collision avec le monitoring patient')
+          }
+          
+          // Électro-bistouri
+          if (newX + playerRadius > 300 && newX - playerRadius < 340 && 
+              newY + playerRadius > 280 && newY - playerRadius < 310) {
+            hasCollision = true
+            console.log('Collision avec l\'électro-bistouri')
+          }
+          
+          // Défibrillateur
+          if (newX + playerRadius > 400 && newX - playerRadius < 450 && 
+              newY + playerRadius > 350 && newY - playerRadius < 390) {
+            hasCollision = true
+            console.log('Collision avec le défibrillateur')
+          }
+          
+          // Lavabos chirurgicaux
+          if (newX + playerRadius > 30 && newX - playerRadius < 90 && 
+              newY + playerRadius > 100 && newY - playerRadius < 130) {
+            hasCollision = true
+            console.log('Collision avec les lavabos chirurgicaux')
+          }
+          
+          // Distributeur de gants
+          if (newX + playerRadius > 420 && newX - playerRadius < 450 && 
+              newY + playerRadius > 80 && newY - playerRadius < 120) {
+            hasCollision = true
+            console.log('Collision avec le distributeur de gants')
+          }
+        } else if (currentRoom === 'reception') {
+          console.log(`Vérification collision consultation à (${newX}, ${newY})`)
+          
+          // Bureau du médecin (x="180" y="150" width="140" height="80")
+          if (newX + playerRadius > 180 && newX - playerRadius < 320 && 
+              newY + playerRadius > 150 && newY - playerRadius < 230) {
+            hasCollision = true
+            console.log('Collision avec le bureau du médecin')
+          }
+          
+          // Chaise du médecin (x="200" y="240" width="40" height="15" + pieds)
+          if (newX + playerRadius > 200 && newX - playerRadius < 240 && 
+              newY + playerRadius > 240 && newY - playerRadius < 285) {
+            hasCollision = true
+            console.log('Collision avec la chaise du médecin')
+          }
+          
+          // Chaise patient (x="260" y="80" width="40" height="15" + dossier)
+          if (newX + playerRadius > 260 && newX - playerRadius < 300 && 
+              newY + playerRadius > 50 && newY - playerRadius < 95) {
+            hasCollision = true
+            console.log('Collision avec la chaise patient')
+          }
+          
+          // Armoire médicale (x="30" y="100" width="60" height="120")
+          if (newX + playerRadius > 30 && newX - playerRadius < 90 && 
+              newY + playerRadius > 100 && newY - playerRadius < 220) {
+            hasCollision = true
+            console.log('Collision avec l\'armoire médicale')
+          }
+          
+          // Table d'examen (x="350" y="200" width="100" height="60" + pieds)
+          if (newX + playerRadius > 350 && newX - playerRadius < 450 && 
+              newY + playerRadius > 200 && newY - playerRadius < 280) {
+            hasCollision = true
+            console.log('Collision avec la table d\'examen')
+          }
+          
+          // Balance médicale (x="400" y="350" width="40" height="15")
+          if (newX + playerRadius > 400 && newX - playerRadius < 440 && 
+              newY + playerRadius > 340 && newY - playerRadius < 368) {
+            hasCollision = true
+            console.log('Collision avec la balance médicale')
+          }
+          
+          // Lavabo (x="450" y="80" width="30" height="20")
+          if (newX + playerRadius > 450 && newX - playerRadius < 480 && 
+              newY + playerRadius > 75 && newY - playerRadius < 100) {
+            hasCollision = true
+            console.log('Collision avec le lavabo')
+          }
+          
+          // Distributeur de gants (x="420" y="120" width="25" height="30")
+          if (newX + playerRadius > 420 && newX - playerRadius < 445 && 
+              newY + playerRadius > 120 && newY - playerRadius < 150) {
+            hasCollision = true
+            console.log('Collision avec le distributeur de gants')
+          }
+          
+          // Tensiomètre (x="100" y="280" width="40" height="30")
+          if (newX + playerRadius > 100 && newX - playerRadius < 140 && 
+              newY + playerRadius > 280 && newY - playerRadius < 318) {
+            hasCollision = true
+            console.log('Collision avec le tensiomètre')
+          }
+          
+          // Thermomètre digital (x="150" y="285" width="20" height="8")
+          if (newX + playerRadius > 150 && newX - playerRadius < 170 && 
+              newY + playerRadius > 285 && newY - playerRadius < 293) {
+            hasCollision = true
+            console.log('Collision avec le thermomètre digital')
+          }
+          
+          // Otoscope (x="180" y="290" width="15" height="25")
+          if (newX + playerRadius > 180 && newX - playerRadius < 195 && 
+              newY + playerRadius > 275 && newY - playerRadius < 315) {
+            hasCollision = true
+            console.log('Collision avec l\'otoscope')
+          }
+          
+          // Diplômes au mur (x="30" y="30" width="60" height="40")
+          if (newX + playerRadius > 30 && newX - playerRadius < 90 && 
+              newY + playerRadius > 30 && newY - playerRadius < 70) {
+            hasCollision = true
+            console.log('Collision avec les diplômes (gauche)')
+          }
+          
+          // Diplôme droite (x="100" y="30" width="60" height="40")
+          if (newX + playerRadius > 100 && newX - playerRadius < 160 && 
+              newY + playerRadius > 30 && newY - playerRadius < 70) {
+            hasCollision = true
+            console.log('Collision avec les diplômes (droite)')
+          }
+          
+          // Horloge murale (cx="400" cy="50" r="20")
+          if (newX + playerRadius > 380 && newX - playerRadius < 420 && 
+              newY + playerRadius > 30 && newY - playerRadius < 70) {
+            hasCollision = true
+            console.log('Collision avec l\'horloge murale')
+          }
+          
+          // Poubelle (x="460" y="420" width="20" height="25")
+          if (newX + playerRadius > 460 && newX - playerRadius < 480 && 
+              newY + playerRadius > 415 && newY - playerRadius < 445) {
+            hasCollision = true
+            console.log('Collision avec la poubelle')
+          }
+          
+          // Murs (limites de la pièce)
+          if (newX - playerRadius < 20 || newX + playerRadius > 480 || 
+              newY - playerRadius < 20 || newY + playerRadius > 480) {
+            hasCollision = true
+            console.log('Collision avec les murs')
           }
         }
         
@@ -255,47 +599,99 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [currentRoom])
 
-  // Fonction pour rendre la zone courante
-  const renderCurrentZone = () => {
-    if (currentRoom === 'accueil') {
-      return (
-        <Accueil 
-          playerPosition={playerPosition}
-          setPlayerPosition={setPlayerPosition}
-          onGoToCorridor={() => setCurrentRoom('couloir')}
-        />
-      )
-    } else if (currentRoom === 'couloir') {
-      return (
-        <Couloir 
-          playerPosition={playerPosition}
-          onEnterRoom={(roomId) => {
-            setCurrentRoom(roomId)
-            if (roomId === 'accueil') setPlayerPosition({ x: 250, y: 400 })
-            else if (roomId === 'pharmacie') setPlayerPosition({ x: 250, y: 400 })
-          }}
-        />
-      )
-    } else if (currentRoom === 'pharmacie') {
-      return (
-        <Pharmacie 
-          playerPosition={playerPosition}
-          setPlayerPosition={setPlayerPosition}
-          onReturnToAccueil={() => {
-            setCurrentRoom('couloir')
-            setPlayerPosition({ x: 250, y: 300 })
-          }}
-        />
-      )
-    } else {
-      // Vue par défaut pour les autres salles
-      return (
-        <div style={{ padding: '20px', textAlign: 'center' }}>
-          <h2>🚧 {currentRoom}</h2>
-          <p>Cette salle n'est pas encore implémentée</p>
-          <button onClick={() => setCurrentRoom('accueil')}>← Retour à l'accueil</button>
-        </div>
-      )
+  // Gestion des salles
+  const handleRoomChange = (roomId) => {
+    console.log(`Changement de salle vers: ${roomId}`)
+    setCurrentRoom(roomId)
+    
+    // Position initiale dans chaque salle
+    switch(roomId) {
+      case 'accueil':
+        setPlayerPosition({ x: 250, y: 400 })
+        break
+      case 'couloir':
+        setPlayerPosition({ x: 250, y: 350 })
+        break
+      case 'operation':
+        setPlayerPosition({ x: 250, y: 400 })
+        break
+      case 'reception':
+        setPlayerPosition({ x: 250, y: 400 })
+        break
+      case 'morgue':
+        setPlayerPosition({ x: 250, y: 400 })
+        break
+      case 'pharmacie':
+        setPlayerPosition({ x: 250, y: 400 })
+        break
+      case 'stockage': // Ajouter le cas stockage
+        setPlayerPosition({ x: 250, y: 400 })
+        break
+      default:
+        setPlayerPosition({ x: 250, y: 400 })
+    }
+  }
+
+  // Rendu conditionnel des salles
+  const renderCurrentRoom = () => {
+    switch(currentRoom) {
+      case 'accueil':
+        return (
+          <Accueil 
+            playerPosition={playerPosition}
+            setPlayerPosition={setPlayerPosition}
+            onGoToCorridor={() => handleRoomChange('couloir')}
+          />
+        )
+      case 'couloir':
+        return (
+          <Couloir 
+            playerPosition={playerPosition}
+            onEnterRoom={handleRoomChange}
+          />
+        )
+      case 'operation':
+        return (
+          <Operation 
+            playerPosition={playerPosition}
+            setPlayerPosition={setPlayerPosition}
+            onReturnToAccueil={() => handleRoomChange('couloir')}
+          />
+        )
+      case 'reception':
+        return (
+          <Consultation 
+            playerPosition={playerPosition}
+            setPlayerPosition={setPlayerPosition}
+            onReturnToAccueil={() => handleRoomChange('couloir')}
+          />
+        )
+      case 'morgue':
+        return (
+          <Morgue 
+            playerPosition={playerPosition}
+            setPlayerPosition={setPlayerPosition}
+            onReturnToAccueil={() => handleRoomChange('couloir')}
+          />
+        )
+      case 'pharmacie':
+        return (
+          <Pharmacie 
+            playerPosition={playerPosition}
+            setPlayerPosition={setPlayerPosition}
+            onReturnToAccueil={() => handleRoomChange('couloir')}
+          />
+        )
+      case 'stockage': // Ajouter le cas stockage
+        return (
+          <Stockage 
+            playerPosition={playerPosition}
+            setPlayerPosition={setPlayerPosition}
+            onReturnToAccueil={() => handleRoomChange('couloir')}
+          />
+        )
+      default:
+        return <div>Salle non trouvée</div>
     }
   }
 
@@ -385,7 +781,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
           </p>
           <div className="room-container">
             <div className="game-world">
-              {renderCurrentZone()}
+              {renderCurrentRoom()}
               
               {/* Joueur - affiché par-dessus toutes les zones */}
               <div 

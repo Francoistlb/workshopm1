@@ -1,0 +1,212 @@
+.consultation-zone {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.consultation-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Bureau du médecin - SVG: x="180" y="150" width="140" height="80" */
+.doctor-desk {
+  position: absolute;
+  top: 150px;
+  left: 180px;
+  width: 140px;
+  height: 80px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* Armoire médicale - SVG: x="30" y="100" width="60" height="120" */
+.medical-cabinet {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  width: 60px;
+  height: 120px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* Ordinateur sur bureau - SVG: x="200" y="160" width="30" height="20" */
+.computer {
+  position: absolute;
+  top: 160px;
+  left: 200px;
+  width: 30px;
+  height: 20px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* Table d'examen - SVG: x="350" y="200" width="100" height="60" */
+.examination-table {
+  position: absolute;
+  top: 200px;
+  left: 350px;
+  width: 100px;
+  height: 60px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* Lavabo - SVG: x="450" y="80" width="30" height="20" */
+.sink {
+  position: absolute;
+  top: 80px;
+  left: 450px;
+  width: 30px;
+  height: 20px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* Tensiomètre - SVG: x="100" y="280" width="40" height="30" */
+.tensiometer {
+  position: absolute;
+  top: 280px;
+  left: 100px;
+  width: 40px;
+  height: 30px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* Balance médicale - SVG: x="400" y="350" width="40" height="15" */
+.medical-scale {
+  position: absolute;
+  top: 350px;
+  left: 400px;
+  width: 40px;
+  height: 15px;
+  cursor: default;
+  z-index: 15;
+  transition: all 0.3s ease;
+}
+
+/* États interactifs */
+.doctor-desk.interactive,
+.medical-cabinet.interactive,
+.computer.interactive,
+.examination-table.interactive,
+.sink.interactive,
+.tensiometer.interactive,
+.medical-scale.interactive {
+  cursor: pointer;
+}
+
+.doctor-desk.interactive:hover,
+.medical-cabinet.interactive:hover,
+.computer.interactive:hover,
+.examination-table.interactive:hover,
+.sink.interactive:hover,
+.tensiometer.interactive:hover,
+.medical-scale.interactive:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+}
+
+.doctor-desk.interactive:active,
+.medical-cabinet.interactive:active,
+.computer.interactive:active,
+.examination-table.interactive:active,
+.sink.interactive:active,
+.tensiometer.interactive:active,
+.medical-scale.interactive:active {
+  transform: scale(0.95);
+}
+
+/* États non-interactifs */
+.doctor-desk.non-interactive,
+.medical-cabinet.non-interactive,
+.computer.non-interactive,
+.examination-table.non-interactive,
+.sink.non-interactive,
+.tensiometer.non-interactive,
+.medical-scale.non-interactive {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* Effets spéciaux pour certains équipements */
+.computer.interactive:hover {
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
+}
+
+.tensiometer.interactive:hover {
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+}
+
+.medical-cabinet.interactive:hover {
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+}
+
+.examination-table.interactive:hover {
+  box-shadow: 0 0 20px rgba(155, 89, 182, 0.6);
+}
+
+.sink.interactive:hover {
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
+}
+
+.medical-scale.interactive:hover {
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.6);
+}
+
+.doctor-desk.interactive:hover {
+  box-shadow: 0 0 20px rgba(230, 126, 34, 0.6);
+}
+
+/* Zones de collision */
+.collision-desk {
+  position: absolute;
+  top: 150px;
+  left: 180px;
+  width: 140px;
+  height: 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-cabinet {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  width: 60px;
+  height: 120px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-examination-table {
+  position: absolute;
+  top: 200px;
+  left: 350px;
+  width: 100px;
+  height: 60px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-equipment {
+  position: absolute;
+  top: 280px;
+  left: 100px;
+  width: 40px;
+  height: 30px;
+  z-index: 1;
+  pointer-events: none;
+}
