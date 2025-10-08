@@ -302,7 +302,7 @@ function Home({ onStartGame }){
                                     
                                     {/* Compteur de joueurs */}
                                     <div className="player-count">
-                                        <h4>� Joueurs connectés ({players.length}/{maxPlayers})</h4>
+                                        <h4>Joueurs connectés ({players.length}/{maxPlayers})</h4>
                                         {players.length >= 2 && players.length < maxPlayers && (
                                             <p className="status-ready">✅ Prêt à jouer !</p>
                                         )}
@@ -350,7 +350,7 @@ function Home({ onStartGame }){
                                     className="start-game-button"
                                     onClick={startGame}
                                 >
-                                    🎮 LANCER L'ESCAPE GAME (${players.length} joueur${players.length > 1 ? 's' : ''})
+                                    🎮 LANCER L'ESCAPE GAME ( {players.length} joueur {players.length > 1 ? 's' : ''})
                                 </button>
                                 
                                 <button 

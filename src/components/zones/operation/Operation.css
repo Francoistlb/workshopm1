@@ -1,0 +1,252 @@
+.salle-operation-zone {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.salle-operation-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Table d'opération */
+.operating-table {
+  position: absolute;
+  left: 200px;
+  top: 220px;
+  width: 100px;
+  height: 60px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+/* Scialytique */
+.scialytic {
+  position: absolute;
+  left: 225px;
+  top: 155px;
+  width: 50px;
+  height: 50px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+/* Monitoring patient */
+.monitoring {
+  position: absolute;
+  left: 320px;
+  top: 180px;
+  width: 60px;
+  height: 40px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+/* Chariot d'anesthésie */
+.anesthesia-cart {
+  position: absolute;
+  left: 120px;
+  top: 200px;
+  width: 50px;
+  height: 70px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+.corps-operation {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.corps-image {
+  width: 120px;
+  height: 160px;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  opacity: 0.9;
+}
+
+/* Alternative si vous voulez le positionner exactement sur la table SVG */
+.corps-operation-on-table {
+  position: absolute;
+  left: 250px; /* Centre de la table d'opération */
+  top: 275px;  /* Centre vertical de la table */
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+/* CORRECTION: Combiner les transformations */
+.corps-operation-on-table.interactive:hover {
+  transform: translate(-50%, -50%); /* Garder le centrage ET ajouter le zoom */
+}
+
+/* Ou si vous ne voulez AUCUN zoom */
+.corps-operation-on-table.interactive:hover {
+  transform: translate(-50%, -50%); /* Juste maintenir le centrage */
+
+}
+
+/* Électro-bistouri */
+.electro-bistoury {
+  position: absolute;
+  left: 350px;
+  top: 280px;
+  width: 40px;
+  height: 30px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+/* Lavabo chirurgical */
+.surgical-sink {
+  position: absolute;
+  left: 30px;
+  top: 100px;
+  width: 60px;
+  height: 30px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+/* Distributeur de gants */
+.glove-dispenser {
+  position: absolute;
+  left: 420px;
+  top: 80px;
+  width: 30px;
+  height: 40px;
+  z-index: 15;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+/* États interactifs */
+.operating-table.interactive,
+.scialytic.interactive,
+.monitoring.interactive,
+.anesthesia-cart.interactive,
+.electro-bistoury.interactive,
+.surgical-sink.interactive,
+.glove-dispenser.interactive,
+.corps-image.interactive {
+  cursor: pointer;
+}
+
+.operating-table.interactive:hover,
+.scialytic.interactive:hover,
+.monitoring.interactive:hover,
+.anesthesia-cart.interactive:hover,
+.electro-bistoury.interactive:hover,
+.surgical-sink.interactive:hover,
+.glove-dispenser.interactive:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+}
+
+.corps-operation-on-table.interactive:hover .corps-image {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
+  /* Juste changer le filtre, pas la taille */
+}
+
+.operating-table.interactive:active,
+.scialytic.interactive:active,
+.monitoring.interactive:active,
+.anesthesia-cart.interactive:active,
+.electro-bistoury.interactive:active,
+.surgical-sink.interactive:active,
+.glove-dispenser.interactive:active {
+  transform: scale(0.95);
+}
+
+/* CORRECTION: Séparer le corps des autres éléments */
+.corps-operation-on-table.interactive:active {
+  transform: translate(-50%, -50%) scale(0.95); /* Combiner les transformations */
+}
+
+/* États non-interactifs */
+.operating-table.non-interactive,
+.scialytic.non-interactive,
+.monitoring.non-interactive,
+.anesthesia-cart.non-interactive,
+.electro-bistoury.non-interactive,
+.surgical-sink.non-interactive,
+.glove-dispenser.non-interactive
+.corps-operation-on-table.interactive {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* Zones de collision */
+.collision-operating-table {
+  position: absolute;
+  left: 200px;
+  top: 220px;
+  width: 100px;
+  height: 60px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-equipment-left {
+  position: absolute;
+  left: 80px;
+  top: 200px;
+  width: 90px;
+  height: 170px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-equipment-right {
+  position: absolute;
+  left: 320px;
+  top: 180px;
+  width: 120px;
+  height: 140px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collision-sinks {
+  position: absolute;
+  left: 30px;
+  top: 100px;
+  width: 60px;
+  height: 30px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Effets spéciaux pour certains équipements */
+.scialytic.interactive:hover {
+  box-shadow: 0 0 25px rgba(255, 255, 204, 0.8);
+}
+
+.monitoring.interactive:hover {
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.6);
+}
+
+.electro-bistoury.interactive:hover {
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+}
+
+.anesthesia-cart.interactive:hover {
+  box-shadow: 0 0 20px rgba(116, 185, 255, 0.6);
+}

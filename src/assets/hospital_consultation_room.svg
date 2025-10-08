@@ -1,0 +1,148 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sol carrelé médical -->
+  <defs>
+    <pattern id="medicalFloor" patternUnits="userSpaceOnUse" width="40" height="40">
+      <rect width="40" height="40" fill="#f8f9fa"/>
+      <rect width="38" height="38" x="1" y="1" fill="#ffffff" stroke="#e9ecef" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  
+  <!-- Fond -->
+  <rect width="500" height="500" fill="url(#medicalFloor)"/>
+  
+  <!-- Murs -->
+  <rect x="0" y="0" width="500" height="20" fill="#d4e7f0"/>
+  <rect x="0" y="480" width="500" height="20" fill="#d4e7f0"/>
+  <rect x="0" y="0" width="20" height="500" fill="#d4e7f0"/>
+  <rect x="480" y="0" width="20" height="500" fill="#d4e7f0"/>
+  
+  <!-- Bureau du médecin -->
+  <rect x="180" y="150" width="140" height="80" fill="#8b4513" stroke="#654321" stroke-width="2"/>
+  <rect x="185" y="155" width="130" height="70" fill="#a0522d"/>
+  
+  <!-- Chaise du médecin -->
+  <rect x="200" y="240" width="40" height="15" fill="#2c3e50"/>
+  <rect x="215" y="255" width="10" height="30" fill="#34495e"/>
+  <circle cx="220" cy="270" r="8" fill="#2c3e50"/>
+  
+  <!-- Chaise patient -->
+  <rect x="260" y="80" width="40" height="15" fill="#7f8c8d"/>
+  <rect x="275" y="50" width="10" height="45" fill="#95a5a6"/>
+  <rect x="270" y="50" width="20" height="30" fill="#bdc3c7"/>
+  
+  <!-- Ordinateur sur bureau -->
+  <rect x="200" y="160" width="30" height="20" fill="#2c3e50"/>
+  <rect x="202" y="162" width="26" height="16" fill="#3498db"/>
+  <rect x="212" y="180" width="8" height="5" fill="#34495e"/>
+  
+  <!-- Dossiers sur bureau -->
+  <rect x="250" y="165" width="15" height="20" fill="#f39c12"/>
+  <rect x="270" y="165" width="15" height="20" fill="#e74c3c"/>
+  <rect x="290" y="165" width="15" height="20" fill="#27ae60"/>
+  
+  <!-- Stéthoscope sur bureau -->
+  <circle cx="240" cy="175" r="4" fill="#95a5a6"/>
+  <path d="M240 175 Q245 170 250 175" stroke="#95a5a6" stroke-width="2" fill="none"/>
+  <circle cx="250" cy="175" r="3" fill="#7f8c8d"/>
+  
+  <!-- Armoire médicale -->
+  <rect x="30" y="100" width="60" height="120" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="35" y="105" width="50" height="110" fill="#ffffff"/>
+  <line x1="60" y1="105" x2="60" y2="215" stroke="#bdc3c7" stroke-width="1"/>
+  <circle cx="50" cy="130" r="2" fill="#34495e"/>
+  <circle cx="70" cy="130" r="2" fill="#34495e"/>
+  <circle cx="50" cy="190" r="2" fill="#34495e"/>
+  <circle cx="70" cy="190" r="2" fill="#34495e"/>
+  
+  <!-- Étagères dans l'armoire -->
+  <rect x="37" y="120" width="46" height="3" fill="#bdc3c7"/>
+  <rect x="37" y="140" width="46" height="3" fill="#bdc3c7"/>
+  <rect x="37" y="160" width="46" height="3" fill="#bdc3c7"/>
+  <rect x="37" y="180" width="46" height="3" fill="#bdc3c7"/>
+  <rect x="37" y="200" width="46" height="3" fill="#bdc3c7"/>
+  
+  <!-- Médicaments dans l'armoire -->
+  <rect x="40" y="125" width="8" height="12" fill="#3498db"/>
+  <rect x="50" y="125" width="8" height="12" fill="#e74c3c"/>
+  <rect x="70" y="125" width="8" height="12" fill="#f39c12"/>
+  <rect x="42" y="145" width="6" height="10" fill="#27ae60"/>
+  <rect x="55" y="145" width="6" height="10" fill="#9b59b6"/>
+  <rect x="72" y="145" width="6" height="10" fill="#e67e22"/>
+  
+  <!-- Table d'examen -->
+  <rect x="350" y="200" width="100" height="60" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="355" y="205" width="90" height="50" fill="#f8f9fa"/>
+  <!-- Pieds de table -->
+  <rect x="355" y="260" width="8" height="20" fill="#95a5a6"/>
+  <rect x="437" y="260" width="8" height="20" fill="#95a5a6"/>
+  
+  <!-- Papier sur table d'examen -->
+  <rect x="360" y="210" width="80" height="40" fill="#ffffff" stroke="#dee2e6" stroke-width="1"/>
+  
+  <!-- Balance médicale -->
+  <rect x="400" y="350" width="40" height="15" fill="#34495e"/>
+  <rect x="415" y="340" width="10" height="10" fill="#2c3e50"/>
+  <rect x="410" y="365" width="20" height="3" fill="#95a5a6"/>
+  
+  <!-- Lavabo -->
+  <rect x="450" y="80" width="30" height="20" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <circle cx="465" cy="90" r="6" fill="#ecf0f1"/>
+  <rect x="463" y="75" width="4" height="10" fill="#95a5a6"/>
+  
+  <!-- Distributeur de gants -->
+  <rect x="420" y="120" width="25" height="30" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="423" y="125" width="19" height="4" fill="#3498db"/>
+  <rect x="423" y="132" width="19" height="4" fill="#3498db"/>
+  <rect x="423" y="139" width="19" height="4" fill="#3498db"/>
+  
+  <!-- Tensiomètre -->
+  <rect x="100" y="280" width="40" height="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="120" cy="295" r="12" fill="#ffffff"/>
+  <circle cx="120" cy="295" r="8" fill="#2c3e50"/>
+  <rect x="110" y="310" width="20" height="8" fill="#34495e"/>
+  
+  <!-- Thermomètre digital -->
+  <rect x="150" y="285" width="20" height="8" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <rect x="152" y="287" width="10" height="4" fill="#27ae60"/>
+  <rect x="165" y="289" width="8" height="2" fill="#95a5a6"/>
+  
+  <!-- Otoscope -->
+  <rect x="180" y="290" width="15" height="25" fill="#34495e"/>
+  <circle cx="187" cy="285" r="4" fill="#f39c12"/>
+  <rect x="185" y="275" width="4" height="8" fill="#2c3e50"/>
+  
+  <!-- Diplômes au mur -->
+  <rect x="30" y="30" width="60" height="40" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="35" y="35" width="50" height="30" fill="#f8f9fa"/>
+  <text x="60" y="50" font-family="Arial" font-size="8" fill="#2c3e50" text-anchor="middle">DIPLÔME</text>
+  <text x="60" y="60" font-family="Arial" font-size="6" fill="#7f8c8d" text-anchor="middle">MÉDECINE</text>
+  
+  <rect x="100" y="30" width="60" height="40" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="105" y="35" width="50" height="30" fill="#f8f9fa"/>
+  <text x="130" y="50" font-family="Arial" font-size="8" fill="#2c3e50" text-anchor="middle">DIPLÔME</text>
+  <text x="130" y="60" font-family="Arial" font-size="6" fill="#7f8c8d" text-anchor="middle">SPÉCIALITÉ</text>
+  
+  <!-- Horloge murale -->
+  <circle cx="400" cy="50" r="20" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <circle cx="400" cy="50" r="15" fill="#f8f9fa"/>
+  <line x1="400" y1="50" x2="400" y2="40" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="400" y1="50" x2="408" y2="50" stroke="#34495e" stroke-width="1"/>
+  
+  <!-- Poubelle -->
+  <rect x="460" y="420" width="20" height="25" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1"/>
+  <rect x="462" y="415" width="16" height="5" fill="#bdc3c7"/>
+  
+  <!-- Tapis -->
+  <ellipse cx="250" cy="400" rx="80" ry="30" fill="#8e44ad" stroke="#7d3c98" stroke-width="2"/>
+  
+  <!-- Sortie d'urgence -->
+  <rect x="480" y="240" width="20" height="60" fill="#27ae60"/>
+  <text x="490" y="275" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">EXIT</text>
+  <polygon points="485,255 495,270 485,285" fill="#ffffff"/>
+  
+  <!-- Éclairage -->
+  <rect x="150" y="10" width="200" height="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1"/>
+  <circle cx="200" cy="14" r="3" fill="#f1c40f"/>
+  <circle cx="250" cy="14" r="3" fill="#f1c40f"/>
+  <circle cx="300" cy="14" r="3" fill="#f1c40f"/>
+</svg>
