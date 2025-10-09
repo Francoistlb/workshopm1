@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import './Accueil.css'
+import Electricity from '../../enigmes/electricite/electricite'
+import PaperModal from '../../modals/PaperModal'
 
-function Accueil({ playerPosition, setPlayerPosition, onGoToCorridor }) {
+function Accueil({ playerPosition, setPlayerPosition, onGoToCorridor, validateObjective }) {
   const [showTerminal, setShowTerminal] = useState(false)
   const [showWhiteboard, setShowWhiteboard] = useState(false)
   const [showFolder1, setShowFolder1] = useState(false)
@@ -10,6 +12,14 @@ function Accueil({ playerPosition, setPlayerPosition, onGoToCorridor }) {
   const [showFolder4, setShowFolder4] = useState(false)
   const [terminalCode, setTerminalCode] = useState('')
   const [showDoorOpen, setShowDoorOpen] = useState(false)
+
+  // Données des patients pour chaque dossier
+  const patientsData = {
+    folder1: { id: 1, nom: 'Marie Lise', gs: 'A-', date_admission: '12/08/25' },
+    folder2: { id: 2, nom: 'Mac Gaver', gs: 'B+', date_admission: '20/06/25' },
+    folder3: { id: 3, nom: 'Jean Pierre', gs: 'O+', date_admission: '02/05/25' },
+    folder4: { id: 4, nom: 'Marie Antoinette', gs: 'AB', date_admission: '19/08/25' }
+  }
 
   // Vérification de proximité - exactement comme dans l'original
   const isPlayerNear = (elementX, elementY, threshold = 60) => {
@@ -32,10 +42,14 @@ function Accueil({ playerPosition, setPlayerPosition, onGoToCorridor }) {
   }
 
   const handleCodeSubmit = () => {
-    if (terminalCode === '0000') {
+    if (terminalCode === '5886') {
       console.log('Code correct ! Porte déverrouillée !')
       setShowDoorOpen(true)
       setShowTerminal(false) // Fermer la modale
+      // Valider l'objectif électricité
+      if (validateObjective) {
+        validateObjective('electricity')
+      }
       alert('✅ Code correct ! La porte s\'est déverrouillée à côté du terminal !')
     } else {
       console.log('Code incorrect !')
@@ -283,6 +297,56 @@ function Accueil({ playerPosition, setPlayerPosition, onGoToCorridor }) {
           </div>
         </div>
       )}
+
+      {/* Modale Tableau Blanc - Affiche l'ordre vital */}
+      <PaperModal
+        isOpen={showWhiteboard}
+        onClose={() => setShowWhiteboard(false)}
+        title="📋 Tableau Blanc - Ordre Vital"
+        paperType="terminal"
+      >
+        <Electricity showBoard={true} />
+      </PaperModal>
+
+      {/* Modale Dossier 1 */}
+      <PaperModal
+        isOpen={showFolder1}
+        onClose={() => setShowFolder1(false)}
+        title="📁 Dossier Patient"
+        paperType="folder"
+      >
+        <Electricity showPatient={patientsData.folder1} />
+      </PaperModal>
+
+      {/* Modale Dossier 2 */}
+      <PaperModal
+        isOpen={showFolder2}
+        onClose={() => setShowFolder2(false)}
+        title="📁 Dossier Patient"
+        paperType="folder"
+      >
+        <Electricity showPatient={patientsData.folder2} />
+      </PaperModal>
+
+      {/* Modale Dossier 3 */}
+      <PaperModal
+        isOpen={showFolder3}
+        onClose={() => setShowFolder3(false)}
+        title="📁 Dossier Patient"
+        paperType="folder"
+      >
+        <Electricity showPatient={patientsData.folder3} />
+      </PaperModal>
+
+      {/* Modale Dossier 4 */}
+      <PaperModal
+        isOpen={showFolder4}
+        onClose={() => setShowFolder4(false)}
+        title="📁 Dossier Patient"
+        paperType="folder"
+      >
+        <Electricity showPatient={patientsData.folder4} />
+      </PaperModal>
     </div>
   )
 }

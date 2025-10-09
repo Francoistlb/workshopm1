@@ -6,11 +6,113 @@ import Operation from '../zones/operation/Operation'
 import Pharmacie from '../zones/pharmacie/Pharmacie'
 import Consultation from '../zones/consultation/Consultation'
 import Morgue from '../zones/morgue/Morgue'
-import Stockage from '../zones/stockage/Stockage' // Ajouter l'import
+import Stockage from '../zones/stockage/Stockage'
+import GameOverModal from '../modals/GameOverModal' // Ajouter l'import
 
 function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', onReturnHome }) {
   const [playerPosition, setPlayerPosition] = useState({ x: 250, y: 400 })
   const [currentRoom, setCurrentRoom] = useState('accueil')
+  
+  // États pour le timer et game over
+  const [timeLeft, setTimeLeft] = useState(30 * 60) // 30 minutes en secondes
+  const [isGameOver, setIsGameOver] = useState(false)
+  const [isGameWon, setIsGameWon] = useState(false)
+  const [finalTime, setFinalTime] = useState('')
+  const [sessionStarted, setSessionStarted] = useState(true)
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false) // État pour le terminal modal
+
+  // États pour les objectifs
+  const [objectives, setObjectives] = useState({
+    electricity: false, // Se valide quand le code électricité est saisi
+    laboratory: false,
+    pharmacy: false,
+    operation: false,
+    antidote: false
+  })
+
+  // Fonction pour valider un objectif
+  const validateObjective = (objectiveKey) => {
+    setObjectives(prev => ({
+      ...prev,
+      [objectiveKey]: true
+    }))
+    console.log(`🎯 Objectif validé : ${objectiveKey}`)
+    
+    // Si c'est l'antidote, arrêter le timer et annoncer la victoire
+    if (objectiveKey === 'antidote') {
+      const remainingTime = timeLeft
+      const timeUsed = (30 * 60) - remainingTime
+      const minutes = Math.floor(timeUsed / 60)
+      const seconds = timeUsed % 60
+      const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+      
+      setFinalTime(timeString)
+      setIsGameWon(true)
+      setSessionStarted(false) // Arrêter le timer
+      
+      // Afficher un message de victoire après un court délai
+      setTimeout(() => {
+        alert(`🎉 MISSION ACCOMPLIE ! 🎉\n\nVous avez trouvé l'antidote et sauvé l'hôpital !\n\nTemps final : ${timeString}\n\nFélicitations ! 🏆`)
+      }, 500)
+    }
+  }
+
+  // Fonction pour vérifier si le stockage est débloqué
+  const isStorageUnlocked = () => {
+    return objectives.laboratory && objectives.pharmacy && objectives.operation
+  }
+
+  // Timer effect
+  useEffect(() => {
+    if (!sessionStarted || isGameOver || isGameWon) return
+
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          setIsGameOver(true)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [sessionStarted, isGameOver, isGameWon])
+
+  // Formater le temps pour l'affichage
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+  }
+
+  // Obtenir la classe CSS selon le temps restant
+  const getTimeClass = () => {
+    if (isGameWon) return 'time-victory'
+    const percentage = (timeLeft / (30 * 60)) * 100
+    if (percentage <= 10) return 'time-critical'
+    if (percentage <= 25) return 'time-warning'
+    return 'time-normal'
+  }
+
+  // Gestion du redémarrage
+  const handleGameRestart = () => {
+    setIsGameOver(false)
+    setIsGameWon(false)
+    setFinalTime('')
+    setTimeLeft(30 * 60)
+    setSessionStarted(true)
+    setCurrentRoom('accueil')
+    setPlayerPosition({ x: 250, y: 400 })
+    // Réinitialiser tous les objectifs
+    setObjectives({
+      electricity: false,
+      laboratory: false,
+      pharmacy: false,
+      operation: false,
+      antidote: false
+    })
+  }
 
   // Définition des portes et leurs positions dans le couloir vertical
   const doors = [
@@ -602,6 +704,13 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
   // Gestion des salles
   const handleRoomChange = (roomId) => {
     console.log(`Changement de salle vers: ${roomId}`)
+    
+    // Vérifier si le stockage est accessible
+    if (roomId === 'stockage' && !isStorageUnlocked()) {
+      alert('🔒 Accès refusé ! Vous devez d\'abord récupérer toutes les clés (Laboratoire, Pharmacie, Opération) pour accéder au stockage.')
+      return // Empêcher la navigation
+    }
+    
     setCurrentRoom(roomId)
     
     // Position initiale dans chaque salle
@@ -641,6 +750,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             playerPosition={playerPosition}
             setPlayerPosition={setPlayerPosition}
             onGoToCorridor={() => handleRoomChange('couloir')}
+            validateObjective={validateObjective}
           />
         )
       case 'couloir':
@@ -648,6 +758,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
           <Couloir 
             playerPosition={playerPosition}
             onEnterRoom={handleRoomChange}
+            isStorageUnlocked={isStorageUnlocked()}
           />
         )
       case 'operation':
@@ -656,6 +767,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             playerPosition={playerPosition}
             setPlayerPosition={setPlayerPosition}
             onReturnToAccueil={() => handleRoomChange('couloir')}
+            validateObjective={validateObjective}
           />
         )
       case 'reception':
@@ -664,6 +776,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             playerPosition={playerPosition}
             setPlayerPosition={setPlayerPosition}
             onReturnToAccueil={() => handleRoomChange('couloir')}
+            validateObjective={validateObjective}
           />
         )
       case 'morgue':
@@ -680,6 +793,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             playerPosition={playerPosition}
             setPlayerPosition={setPlayerPosition}
             onReturnToAccueil={() => handleRoomChange('couloir')}
+            validateObjective={validateObjective}
           />
         )
       case 'stockage': // Ajouter le cas stockage
@@ -688,6 +802,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             playerPosition={playerPosition}
             setPlayerPosition={setPlayerPosition}
             onReturnToAccueil={() => handleRoomChange('couloir')}
+            validateObjective={validateObjective}
           />
         )
       default:
@@ -729,16 +844,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
           </div>
         </div>
 
-        <div className="interface-section">
-          <h3> 🗺️ Carte de l'Hôpital</h3>
-          <div className="hospital-map">
-            <img
-              src={new URL('../../assets/hospital_floorplan_topdown.svg', import.meta.url).href}
-              alt="Minimap - Plan de l'hôpital"
-              style={{ width: '100%', borderRadius: 8, border: '1px solid #dee2e6' }}
-            />
-          </div>
-        </div>
+        
         
         <div className="interface-section">
           <h3>📊 Progression</h3>
@@ -749,11 +855,15 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
             </div>
             <div className="stat-item">
               <span className="stat-label">🧩 Énigmes résolues:</span>
-              <span className="stat-value">0/4</span>
+              <span className="stat-value">
+                {Object.values(objectives).filter(Boolean).length}/5
+              </span>
             </div>
             <div className="stat-item">
               <span className="stat-label">⏱️ Temps:</span>
-              <span className="stat-value">00:45</span>
+              <span className={`stat-value ${getTimeClass()}`}>
+                {isGameWon ? `VICTOIRE! ${finalTime}` : formatTime(timeLeft)}
+              </span>
             </div>
           </div>
         </div>
@@ -802,27 +912,63 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
 
       {/* Sidebar Droite - Informations */}
       <div className="sidebar-right">
-        <div className="interface-section">
-          <h3>🗺️ Mini-carte</h3>
-          <div className="minimap">
-            <div className="minimap-room current-room">Accueil</div>
-            <div className="minimap-room">Labo</div>
-            <div className="minimap-room">Pharmacie</div>
-            <div className="minimap-room">Urgences</div>
+       <div className="interface-section">
+          <h3> 🗺️ Carte de l'Hôpital</h3>
+          <div className="hospital-map">
+            <img
+              src={new URL('../../assets/hospital_floorplan_topdown.svg', import.meta.url).href}
+              alt="Minimap - Plan de l'hôpital"
+              style={{ width: '100%', borderRadius: 8, border: '1px solid #dee2e6' }}
+            />
           </div>
         </div>
         
         <div className="interface-section">
           <h3>🎯 Objectifs</h3>
           <div className="objectives">
-            <div className="objective">✅ Rétablir l'électricité</div>
-            <div className="objective">🔒 Trouver la clé du laboratoire</div>
-            <div className="objective">🔒 Trouver la clé de la pharmacie</div>
-            <div className="objective">🔒 Trouver la clé de la salle d'opération</div>
-            <div className="objective">🔒 Reconstituer l'antidote</div>
+            <div className="objective">{objectives.electricity ? '✅' : '🔒'} Rétablir l'électricité</div>
+            <div className="objective">{objectives.laboratory ? '✅' : '🔒'} Trouver la clé du médecin</div>
+            <div className="objective">{objectives.pharmacy ? '✅' : '🔒'} Trouver la clé de la pharmacie</div>
+            <div className="objective">{objectives.operation ? '✅' : '🔒'} Trouver la clé de la salle d'opération</div>
+            <div className="objective">{objectives.antidote ? '✅' : '🔒'} Trouver l'antidote</div>
           </div>
         </div>
       </div>
+
+      {/* Modal Game Over */}
+      <GameOverModal 
+        isOpen={isGameOver}
+        onReturnHome={onReturnHome}
+        onRestart={handleGameRestart}
+      />
+
+      {/* Modal Terminal - Sécurité */}
+      {isTerminalOpen && (
+        <div className="terminal-modal-overlay">
+          <div className="terminal-modal">
+            <div className="terminal-header">
+              <div className="terminal-icon">💻</div>
+              <h3 className="terminal-title">Terminal de Sécurité</h3>
+              <button className="terminal-close-button" onClick={() => setIsTerminalOpen(false)}>
+                ✕
+              </button>
+            </div>
+            
+            <div className="terminal-content">
+              <div className="terminal-text">
+                <div className="terminal-system-status">SYSTÈME DE SÉCURITÉ ACTIVÉ</div>
+                <div className="terminal-prompt">Veuillez saisir le code d'accès :</div>
+                {/* Votre contenu terminal */}
+              </div>
+            </div>
+            
+            <div className="terminal-buttons">
+              <button className="terminal-button success">VALIDER</button>
+              <button className="terminal-button danger">ANNULER</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

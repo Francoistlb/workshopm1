@@ -1,0 +1,224 @@
+/* Modal réutilisable avec style papier/document */
+.paper-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.paper-modal-content {
+  background: #f5f5dc; /* Couleur papier ancien */
+  border: 3px solid #8B4513;
+  border-radius: 15px;
+  padding: 25px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 0 30px rgba(139, 69, 19, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  font-family: 'Times New Roman', serif;
+  position: relative;
+}
+
+/* Style spécial pour les jeux interactifs */
+.paper-modal-content.game {
+  max-width: 98vw;
+  max-height: 98vh;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: #000;
+  border: 3px solid #8B4513;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style pour différents types de documents */
+.paper-modal-content.document {
+  background: #f5f5dc;
+  border-color: #8B4513;
+}
+
+.paper-modal-content.folder {
+  background: #faf0e6;
+  border-color: #D2691E;
+}
+
+.paper-modal-content.terminal {
+  background: #1a1a1a;
+  border-color: #00ff00;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+}
+
+/* Effet papier avec texture */
+.paper-modal-content.document::before,
+.paper-modal-content.folder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 24px,
+      rgba(139, 69, 19, 0.1) 25px
+    );
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+.paper-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #8B4513;
+  border-bottom: 2px solid #8B4513;
+  padding-bottom: 10px;
+  z-index: 10;
+}
+
+.paper-modal-content.terminal .paper-modal-header {
+  color: #00ff00;
+  border-bottom-color: #00ff00;
+}
+
+.paper-modal-content.game .paper-modal-header {
+  color: #f5f5dc;
+  border-bottom-color: #8B4513;
+  background: rgba(139, 69, 19, 0.8);
+  margin: 0;
+  padding: 15px 25px;
+  border-radius: 12px 12px 0 0;
+}
+
+.paper-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.paper-modal-close {
+  background: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.paper-modal-close:hover {
+  background: #cc0000;
+  transform: scale(1.1);
+}
+
+.paper-modal-body {
+  color: #2F4F4F;
+  line-height: 1.6;
+}
+
+.paper-modal-content.terminal .paper-modal-body {
+  color: #00ff00;
+}
+
+.paper-modal-content.game .paper-modal-body {
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Style pour le texte dans le modal */
+.paper-text {
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 15px 0;
+  text-align: justify;
+  text-indent: 20px;
+}
+
+/* Style spécial pour les messages de monitoring */
+.monitoring-message {
+  background: rgba(139, 69, 19, 0.1);
+  padding: 20px;
+  border-left: 5px solid #8B4513;
+  margin: 15px 0;
+  border-radius: 5px;
+  font-style: italic;
+}
+
+.monitoring-message p {
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* Effet hover pour l'interactivité */
+.paper-modal-content:hover {
+  transform: scale(1.01);
+  transition: transform 0.3s ease;
+}
+
+/* Animation d'ouverture */
+.paper-modal {
+  animation: fadeIn 0.3s ease;
+}
+
+.paper-modal-content {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    transform: translateY(-50px) scale(0.9);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .paper-modal-content {
+    width: 95%;
+    padding: 20px;
+    max-height: 90vh;
+  }
+  
+  .paper-modal-header h3 {
+    font-size: 16px;
+  }
+  
+  .paper-text {
+    font-size: 14px;
+  }
+}

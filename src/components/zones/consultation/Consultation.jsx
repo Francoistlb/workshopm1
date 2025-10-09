@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PorteOuverte from '../../plateau/PorteOuverte'
+import PaperModal from '../../modals/PaperModal'
+import Maladies from '../../enigmes/maladies/maladies'
 import './Consultation.css'
 
-function Consultation({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
+function Consultation({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
   // États pour les différents éléments interactifs
   const [showDoctorDesk, setShowDoctorDesk] = useState(false)
   const [showMedicalCabinet, setShowMedicalCabinet] = useState(false)
@@ -11,6 +13,7 @@ function Consultation({ playerPosition, setPlayerPosition, onReturnToAccueil }) 
   const [showSink, setShowSink] = useState(false)
   const [showTensiometer, setShowTensiometer] = useState(false)
   const [showMedicalScale, setShowMedicalScale] = useState(false)
+  const [showMaladiesEnigma, setShowMaladiesEnigma] = useState(false) // Nouvel état pour l'énigme des maladies
 
   // Fonction pour vérifier si le joueur est proche d'un élément
   const isPlayerNear = (elementX, elementY, threshold = 60) => {
@@ -53,8 +56,8 @@ function Consultation({ playerPosition, setPlayerPosition, onReturnToAccueil }) 
       console.log('Vous devez vous approcher de la table d\'examen pour l\'utiliser !')
       return
     }
-    console.log('Table d\'examen préparée !')
-    setShowExaminationTable(!showExaminationTable)
+    console.log('🔬 Démarrage de l\'examen médical - Énigme des contaminations')
+    setShowMaladiesEnigma(true) // Ouvrir l'énigme des maladies
   }
 
   const handleSinkClick = () => {
@@ -170,6 +173,16 @@ function Consultation({ playerPosition, setPlayerPosition, onReturnToAccueil }) 
         className={`${isPlayerNear(250, 440) ? 'interactive glow-green' : 'non-interactive'}`}
         isVisible={true}
       />
+
+      {/* Modal Énigme des Maladies avec PaperModal */}
+      <PaperModal
+        isOpen={showMaladiesEnigma}
+        onClose={() => setShowMaladiesEnigma(false)}
+        title="🦠 Diagnostic Médical - Zone de Contamination"
+        paperType="game"
+      >
+        <Maladies validateObjective={validateObjective} />
+      </PaperModal>
 
       {/* Zones de collision invisibles */}
       <div className="collision-desk"></div>

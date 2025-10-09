@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './Couloir.css'
 
-function Couloir({ playerPosition, onEnterRoom }) {
+function Couloir({ playerPosition, onEnterRoom, isStorageUnlocked }) {
   const [lockedMessage, setLockedMessage] = useState(null)
 
   // Définition des portes et leurs positions dans le couloir vertical
@@ -9,7 +9,7 @@ function Couloir({ playerPosition, onEnterRoom }) {
     { id: 'accueil', name: 'Hall d\'Accueil', x: 250, y: 420, emoji: '🏥' },
     { id: 'pharmacie', name: 'Pharmacie', x: 80, y: 60, emoji: '💊' },
     { id: 'morgue', name: 'Morgue', x: 420, y: 60, emoji: '⚰️' }, 
-    { id: 'stockage', name: 'Stockage', x: 250, y: 30, emoji: '📦' }, // Nouvelle porte en haut
+    { id: 'stockage', name: 'Stockage', x: 250, y: 30, emoji: '📦', locked: !isStorageUnlocked }, // Dynamiquement verrouillé
     { id: 'pediatrics', name: 'Pediatrie', x: 80, y: 160, emoji: '👶', locked: true },
     { id: 'radiology', name: 'Radiologie', x: 420, y: 160, emoji: '📡', locked: true },
     { id: 'reception', name: 'Consultation', x: 80, y: 260, emoji: '🏥' },
@@ -28,8 +28,11 @@ function Couloir({ playerPosition, onEnterRoom }) {
   const handleDoorClick = (door) => {
     // Vérifier si la porte est verrouillée
     if (door.locked) {
+      const message = door.id === 'stockage' 
+        ? '🔒 Il faut tous les éléments pour accéder au stockage'
+        : '🔒 La porte est verrouillée'
       setLockedMessage({
-        text: '🔒 La porte est verrouillée',
+        text: message,
         x: door.x,
         y: door.y - 80
       })
@@ -86,7 +89,7 @@ function Couloir({ playerPosition, onEnterRoom }) {
             color: 'white',
             padding: '8px 12px',
             borderRadius: '8px',
-            fontSize: '14px',
+            fontSize: '6px',
             fontWeight: 'bold',
             boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
             animation: 'fadeInOut 2s ease-in-out',

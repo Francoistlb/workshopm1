@@ -1,14 +1,69 @@
 import { useState, useEffect } from 'react'
 import './Pharmacie.css'
 import PorteOuverte from '../../plateau/PorteOuverte'
+import PaperModal from '../../modals/PaperModal'
+import Pictogrames from '../../pictogrames/pictogrames'
 
-function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
+function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
   const [showComputer, setShowComputer] = useState(false)
   const [showBalance, setShowBalance] = useState(false)
   const [showRefrigerator, setShowRefrigerator] = useState(false)
   const [showMortar, setShowMortar] = useState(false)
   const [showLeftShelf, setShowLeftShelf] = useState(false)
   const [showRightShelf, setShowRightShelf] = useState(false)
+  const [showInstructions, setShowInstructions] = useState(false)
+  const [showChemicalBoxes, setShowChemicalBoxes] = useState(false)
+  const [selectedBoxes, setSelectedBoxes] = useState([])
+  const [validationMessage, setValidationMessage] = useState('')
+
+  // Données des boîtes d'agents chimiques
+  const chemicalBoxes = [
+    {
+      id: 1,
+      name: 'Acétone',
+      symbol: '🔥',
+      number: 1,
+      dangerous: true
+    },
+    {
+      id: 2,
+      name: 'Chloroforme',
+      symbol: '⚠️',
+      number: 6,
+      dangerous: true
+    },
+    {
+      id: 3,
+      name: 'Acide chlorhydrique',
+      symbol: '🧪',
+      number: 9,
+      dangerous: true
+    },
+    {
+      id: 4,
+      name: 'Peroxyde d\'hydrogène',
+      symbol: '💥',
+      number: 7,
+      dangerous: true
+    },
+    {
+      id: 5,
+      name: 'Éthanol',
+      symbol: '🔥',
+      number: 3,
+      dangerous: true
+    },
+    {
+      id: 6,
+      name: 'Paracétamol (poudre brute)',
+      symbol: '🌿',
+      number: 4,
+      dangerous: false
+    }
+  ]
+
+  // Solution : Acétone (1), Éthanol (3), Paracétamol (4) = code 134
+  const correctSolution = [1, 3, 4]
 
   // Fonction pour gérer la porte de sortie
   const handleExitDoorClick = () => {
@@ -31,12 +86,45 @@ function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
   }
 
   const handleComputerClick = () => {
-    if (!isPlayerNear(297.5, 172.5)) {
-      console.log('Vous devez vous approcher de l\'ordinateur !')
+    console.log('Système d\'analyse chimique activé !')
+    setShowChemicalBoxes(true)
+  }
+
+  const handleBoxClick = (boxNumber) => {
+    if (selectedBoxes.includes(boxNumber)) {
+      setSelectedBoxes(selectedBoxes.filter(num => num !== boxNumber))
+    } else if (selectedBoxes.length < 3) {
+      setSelectedBoxes([...selectedBoxes, boxNumber])
+    }
+  }
+
+  const validateSolution = () => {
+    if (selectedBoxes.length !== 3) {
+      setValidationMessage('❌ Vous devez sélectionner exactement 3 boîtes !')
       return
     }
-    console.log('Terminal de pharmacie activé !')
-    setShowComputer(!showComputer)
+
+    const sortedSelection = [...selectedBoxes].sort((a, b) => a - b)
+    const isCorrect = JSON.stringify(sortedSelection) === JSON.stringify(correctSolution)
+
+    if (isCorrect) {
+      const code = selectedBoxes.sort((a, b) => a - b).join('')
+      setValidationMessage(`✅ Excellent ! Code de validation : ${code}`)
+      
+      // Valider l'objectif pharmacie
+      if (validateObjective) {
+        validateObjective('pharmacy')
+      }
+      
+      // Fermer le modal après un délai
+      setTimeout(() => {
+        setShowChemicalBoxes(false)
+        setSelectedBoxes([])
+        setValidationMessage('')
+      }, 3000)
+    } else {
+      setValidationMessage('❌ Mauvaise combinaison ! Consultez les symboles de danger.')
+    }
   }
 
   const handleBalanceClick = () => {
@@ -67,12 +155,10 @@ function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
   }
 
   const handleLeftShelfClick = () => {
-    if (!isPlayerNear(52.5, 150)) {
-      console.log('Vous devez vous approcher des étagères !')
-      return
-    }
-    console.log('Étagère de médicaments consultée !')
-    setShowLeftShelf(!showLeftShelf)
+    console.log('Instructions de sécurité consultées !')
+    console.log('Avant:', showInstructions)
+    setShowInstructions(true)
+    console.log('Après setShowInstructions(true)')
   }
 
   const handleRightShelfClick = () => {
@@ -103,7 +189,7 @@ function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
       <div 
         className={`computer-terminal ${isPlayerNear(297.5, 172.5) ? 'interactive' : 'non-interactive'}`}
         onClick={handleComputerClick}
-        title={isPlayerNear(297.5, 172.5) ? "Terminal de pharmacie - Cliquez pour interagir" : "Approchez-vous pour interagir"}
+        title="Système d'analyse chimique - Cliquez pour analyser les boîtes"
       >
         <div className="computer-screen"></div>
       </div>
@@ -114,7 +200,6 @@ function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
         onClick={handleBalanceClick}
         title={isPlayerNear(215, 167.5) ? "Balance de précision - Cliquez pour peser" : "Approchez-vous pour utiliser"}
       >
-        <div className="balance-plate"></div>
       </div>
 
       {/* Réfrigérateur médical */}
@@ -139,7 +224,7 @@ function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
       <div 
         className={`left-shelf ${isPlayerNear(52.5, 150) ? 'interactive' : 'non-interactive'}`}
         onClick={handleLeftShelfClick}
-        title={isPlayerNear(52.5, 150) ? "Étagères de médicaments - Cliquez pour consulter" : "Approchez-vous pour consulter"}
+        title="Instructions de sécurité - Cliquez pour consulter les consignes"
       >
         <div className="shelf-medicines"></div>
       </div>
@@ -167,6 +252,91 @@ function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
       <div className="collision-left-shelves"></div>
       <div className="collision-right-shelves"></div>
       <div className="collision-fridge"></div>
+
+      {/* Modal Instructions */}
+      {showInstructions && (
+        <div className="instructions-modal">
+          <div className="instructions-modal-content">
+            <button 
+              onClick={() => setShowInstructions(false)} 
+              className="instructions-modal-close"
+            >
+              ✕
+            </button>
+            <div className="instructions-warning-box">
+              <p><strong>⚠️ Instructions du personnel médical :</strong></p>
+              <p><em>"Ne conservez que les substances qui ne présentent aucun risque explosif, dangereux pour la santé ou corrosif. Le bon ordre suivra toujours l'alphabet."</em></p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Boîtes Chimiques */}
+      {showChemicalBoxes && (
+        <PaperModal
+          isOpen={showChemicalBoxes}
+          onClose={() => setShowChemicalBoxes(false)}
+          paperType="game"
+          title="Système d'Analyse Chimique"
+        >
+          <div className="chemical-modal-content">
+            <h3 className="chemical-modal-title">🧪 Sélectionnez les 3 boîtes sûres</h3>
+            <p className="chemical-modal-description">
+              Cliquez sur les boîtes pour les sélectionner. Évitez les substances explosives, dangereuses pour la santé ou corrosives.
+            </p>
+
+            <div className="chemical-boxes-grid">
+              {chemicalBoxes.map((box) => (
+                <div
+                  key={box.id}
+                  onClick={() => handleBoxClick(box.number)}
+                  className={`chemical-box ${selectedBoxes.includes(box.number) ? 'selected' : ''}`}
+                >
+                  <div className="chemical-box-symbol">
+                    {box.symbol}
+                  </div>
+                  <h4 className="chemical-box-name">
+                    {box.name}
+                  </h4>
+                  <p className="chemical-box-danger">
+                    {box.symbolName}
+                  </p>
+                  <div className="chemical-box-number">
+                    N° {box.number}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="chemical-selection-info">
+              <p>Boîtes sélectionnées : {selectedBoxes.length}/3</p>
+              {selectedBoxes.length > 0 && (
+                <p>Numéros : {selectedBoxes.sort((a, b) => a - b).join(', ')}</p>
+              )}
+            </div>
+
+            <div className="chemical-button-container">
+              <button
+                onClick={validateSolution}
+                disabled={selectedBoxes.length !== 3}
+                className="chemical-validate-button"
+              >
+                Valider la sélection
+              </button>
+            </div>
+
+            {validationMessage && (
+              <div className={`chemical-validation-message ${validationMessage.includes('✅') ? 'success' : 'error'}`}>
+                {validationMessage}
+              </div>
+            )}
+
+            <div className="chemical-pictogrammes-container">
+              <Pictogrames />
+            </div>
+          </div>
+        </PaperModal>
+      )}
     </div>
   )
 }

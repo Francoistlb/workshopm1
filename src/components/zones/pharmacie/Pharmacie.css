@@ -263,3 +263,211 @@
   background: rgba(210, 180, 140, 0.6);
   box-shadow: 0 0 15px rgba(160, 82, 45, 0.5);
 }
+
+/* Styles pour les boîtes chimiques */
+.chemical-boxes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chemical-box {
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  background-color: #e6e6e6;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chemical-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.chemical-box.selected {
+  border: 3px solid #27ae60;
+  background-color: #d5f4e6;
+  transform: scale(1.02);
+}
+
+.chemical-box-symbol {
+  font-size: 1.8em;
+  margin-bottom: 8px;
+}
+
+.chemical-box-name {
+  margin: 8px 0;
+  color: #3f3f3f;
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.chemical-box-danger {
+  color: #666;
+  font-size: 0.8em;
+  margin: 5px 0;
+  font-style: italic;
+}
+
+.chemical-box-number {
+  background-color: #ecf0f1;
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.chemical-selection-info {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #000000;
+  border-radius: 5px;
+}
+
+.chemical-validate-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.chemical-validate-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.chemical-validate-button:hover:not(:disabled) {
+  background-color: #229954;
+}
+
+.chemical-validation-message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.chemical-validation-message.success {
+  background-color: #d5f4e6;
+  color: #155724;
+}
+
+.chemical-validation-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Modal Instructions de sécurité */
+.instructions-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructions-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.instructions-modal-close {
+  float: right;
+  background: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.instructions-modal-close:hover {
+  background: #cc0000;
+  transform: scale(1.1);
+}
+
+.instructions-modal p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.instructions-modal strong {
+  color: #2c3e50;
+}
+
+.instructions-modal em {
+  color: #e67e22;
+  font-style: italic;
+}
+
+.instructions-warning-box {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.instructions-tip {
+  color: #666;
+  font-size: 0.9em;
+}
+
+/* Styles pour le contenu du modal chimique */
+.chemical-modal-content {
+  padding: 20px;
+}
+
+.chemical-modal-title {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.chemical-modal-description {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.chemical-button-container {
+  text-align: center;
+}
+
+.chemical-pictogrammes-container {
+  margin-top: 20px;
+}

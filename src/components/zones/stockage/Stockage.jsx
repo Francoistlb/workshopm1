@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PorteOuverte from '../../plateau/PorteOuverte'
 import './Stockage.css'
 
-function Stockage({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
+function Stockage({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
   const [showRemedyBox, setShowRemedyBox] = useState(false)
   const [showSafe, setShowSafe] = useState(false)
   const [showLeftShelves, setShowLeftShelves] = useState(false)
@@ -28,6 +28,12 @@ function Stockage({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
     setShowSafe(!showSafe)
     if (!remedyCollected) {
       setRemedyCollected(true)
+      
+      // Valider l'objectif antidote
+      if (validateObjective) {
+        validateObjective('antidote')
+      }
+      
       alert('🎉 Félicitations ! Vous avez trouvé le remède final ! 💊✨')
     }
   }

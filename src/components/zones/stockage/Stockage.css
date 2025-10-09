@@ -32,10 +32,6 @@
   box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ffd700;
 }
 
-.glow-green {
-  box-shadow: 0 0 15px #28a745, 0 0 25px #28a745;
-}
-
 .interactive {
   transform: scale(1.05);
   filter: brightness(1.1);

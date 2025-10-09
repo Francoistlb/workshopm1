@@ -76,29 +76,25 @@
   object-fit: contain;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
   opacity: 0.9;
+  /* Transition uniquement sur le filter pour éviter les décalages */
+  transition: filter 0.3s ease;
 }
 
 /* Alternative si vous voulez le positionner exactement sur la table SVG */
 .corps-operation-on-table {
-  position: absolute;
-  left: 250px; /* Centre de la table d'opération */
-  top: 275px;  /* Centre vertical de la table */
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  padding: 40px;
+  position: absolute !important;
+  left: 250px !important; /* Centre de la table d'opération */
+  top: 275px !important;  /* Centre vertical de la table */
+  transform: translate(-50%, -50%) !important;
+  z-index: 12; /* Z-index cohérent mais en dessous des autres éléments */
+  /* Suppression du padding qui causait le déplacement */
   border-radius: 50%;
-  transition: all 0.3s ease;
+  /* Suppression de la transition qui cause le décalage */
 }
 
-/* CORRECTION: Combiner les transformations */
+/* Corps - maintenir uniquement le centrage sans zoom ni padding */
 .corps-operation-on-table.interactive:hover {
-  transform: translate(-50%, -50%); /* Garder le centrage ET ajouter le zoom */
-}
-
-/* Ou si vous ne voulez AUCUN zoom */
-.corps-operation-on-table.interactive:hover {
-  transform: translate(-50%, -50%); /* Juste maintenir le centrage */
-
+  transform: translate(-50%, -50%) !important; /* Force le maintien de la position */
 }
 
 /* Électro-bistouri */
@@ -144,8 +140,12 @@
 .anesthesia-cart.interactive,
 .electro-bistoury.interactive,
 .surgical-sink.interactive,
-.glove-dispenser.interactive,
-.corps-image.interactive {
+.glove-dispenser.interactive {
+  cursor: pointer;
+}
+
+/* Corps - traitement séparé */
+.corps-operation-on-table.interactive {
   cursor: pointer;
 }
 
@@ -162,7 +162,7 @@
 
 .corps-operation-on-table.interactive:hover .corps-image {
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
-  /* Juste changer le filtre, pas la taille */
+  /* Uniquement l'effet visuel, aucune transformation de taille ou position */
 }
 
 .operating-table.interactive:active,
@@ -175,9 +175,9 @@
   transform: scale(0.95);
 }
 
-/* CORRECTION: Séparer le corps des autres éléments */
+/* CORRECTION: Corps - maintenir le centrage lors du clic */
 .corps-operation-on-table.interactive:active {
-  transform: translate(-50%, -50%) scale(0.95); /* Combiner les transformations */
+  transform: translate(-50%, -50%); /* Léger effet de clic sans déplacement */
 }
 
 /* États non-interactifs */
@@ -187,8 +187,8 @@
 .anesthesia-cart.non-interactive,
 .electro-bistoury.non-interactive,
 .surgical-sink.non-interactive,
-.glove-dispenser.non-interactive
-.corps-operation-on-table.interactive {
+.glove-dispenser.non-interactive,
+.corps-operation-on-table.non-interactive {
   opacity: 0.7;
   cursor: default;
 }
@@ -249,4 +249,75 @@
 
 .anesthesia-cart.interactive:hover {
   box-shadow: 0 0 20px rgba(116, 185, 255, 0.6);
+}
+
+/* Modale Énigme du Corps */
+.corps-enigma-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.corps-enigma-modal-content {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 20px;
+  max-height: 100%;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow-y: auto;
+}
+
+.corps-enigma-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.corps-enigma-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 15px;
+}
+
+.corps-enigma-close {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.corps-enigma-close:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.corps-enigma-body {
+  text-align: center;
+  font-size: 9px;
+}
+
+.corps-enigma-body p {
+  margin-bottom: 10px;
+  color: #495057;
+  font-size: 1em;
 }

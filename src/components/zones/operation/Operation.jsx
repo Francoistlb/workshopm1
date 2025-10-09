@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import PorteOuverte from '../../plateau/PorteOuverte'
+import Corps from '../../enigmes/corps/corps'
+import PaperModal from '../../modals/PaperModal'
 import './Operation.css'
 
-function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil }) {
+function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
   // États pour les différents éléments interactifs
   const [showOperatingTable, setShowOperatingTable] = useState(false)
   const [showScialytic, setShowScialytic] = useState(false)
@@ -11,6 +13,7 @@ function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil }
   const [showElectroBistoury, setShowElectroBistoury] = useState(false)
   const [showSurgicalSink, setShowSurgicalSink] = useState(false)
   const [showGloveDispenser, setShowGloveDispenser] = useState(false)
+  const [showCorpsEnigma, setShowCorpsEnigma] = useState(false) // État pour l'énigme du corps
 
   // Fonction pour vérifier si le joueur est proche d'un élément
   const isPlayerNear = (elementX, elementY, threshold = 60) => {
@@ -45,7 +48,7 @@ function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil }
       return
     }
     console.log('Monitoring patient activé !')
-    setShowMonitoring(!showMonitoring)
+    setShowMonitoring(true) // Utiliser le nouveau modal
   }
 
   const handleAnesthesiaClick = () => {
@@ -95,12 +98,17 @@ function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil }
 
   // Ajouter ce handler pour le corps
   const handleCorpsClick = () => {
-    if (!isPlayerNear(250, 275)) {
-      console.log('Vous devez vous approcher du patient pour l\'examiner !')
+    console.log('🔍 Clic sur le corps détecté!')
+    console.log('Position joueur:', playerPosition)
+    console.log('Distance calculée:', Math.sqrt(Math.pow(playerPosition.x - 250, 2) + Math.pow(playerPosition.y - 275, 2)))
+    
+    if (!isPlayerNear(250, 275,100)) {
+      console.log('❌ Vous devez vous approcher du patient pour l\'examiner !')
       return
     }
-    console.log('Examen du patient en cours...')
-    // Ajouter ici votre logique d'interaction avec le corps
+    console.log('✅ Examen du patient en cours...')
+    console.log('📖 Ouverture de l\'énigme du corps')
+    setShowCorpsEnigma(true) // Afficher l'énigme du corps
   }
 
   return (
@@ -192,6 +200,45 @@ function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil }
       <div className="collision-equipment-left"></div>
       <div className="collision-equipment-right"></div>
       <div className="collision-sinks"></div>
+
+      {/* Modale Énigme du Corps */}
+      {showCorpsEnigma && (
+        <div className="corps-enigma-modal">
+          <div className="corps-enigma-modal-content">
+            <div className="corps-enigma-header">
+              <h3>🫀 Examen du Patient</h3>
+              <button 
+                className="corps-enigma-close"
+                onClick={() => {
+                  console.log('🚪 Fermeture de l\'énigme du corps')
+                  setShowCorpsEnigma(false)
+                }}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="corps-enigma-body">
+              <p>Examinez les organes du patient et trouvez le code de l'énigme :</p>
+              <Corps validateObjective={validateObjective} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Monitoring avec PaperModal */}
+      <PaperModal
+        isOpen={showMonitoring}
+        onClose={() => setShowMonitoring(false)}
+        title="📊 Monitoring Patient - Rapport Médical"
+        paperType="document"
+      >
+        <div className="monitoring-message">
+          <p>Il est entré par la voie de l'air, invisible et feutré, s'accrochant là où l'oxygène passe…</p>
+          <p>De là, il s'est faufilé dans les couloirs rouges qui irriguent tout le corps, profitant du flux vital…</p>
+          <p>Il a ensuite trouvé refuge dans le centre de décision, troublant les ordres et les signaux…</p>
+          <p>Et enfin, il a frappé là où l'énergie se fabrique, épuisant les forces du corps…</p>
+        </div>
+      </PaperModal>
     </div>
   )
 }
