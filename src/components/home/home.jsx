@@ -350,7 +350,7 @@ function Home({ onStartGame }){
                                     className="start-game-button"
                                     onClick={startGame}
                                 >
-                                    🎮 LANCER L'ESCAPE GAME ( {players.length} joueur {players.length > 1 ? 's' : ''})
+                                LANCER L'ESCAPE GAME <br/> ( {players.length} joueur(s) {players.length > 1 ? 's' : ''})
                                 </button>
                                 
                                 <button 

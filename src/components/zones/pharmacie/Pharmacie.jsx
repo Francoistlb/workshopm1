@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './Pharmacie.css'
 import PorteOuverte from '../../plateau/PorteOuverte'
 import PaperModal from '../../modals/PaperModal'
-import Pictogrames from '../../pictogrames/pictogrames'
+import Pictogrames from '../../enigmes/pictogrames/pictogrames'
 
 function Pharmacie({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
   const [showComputer, setShowComputer] = useState(false)
