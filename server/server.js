@@ -8,8 +8,11 @@ app.use(cors());
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
+  // During development it's convenient to allow connections from other
+  // machines on the LAN. For production, replace '*' with a strict list
+  // of allowed origins (e.g. ['https://example.com']).
   cors: {
-    origin: "http://localhost:5173", // Vite dev server
+    origin: '*', // allow all origins (development)
     methods: ["GET", "POST"]
   }
 });
@@ -221,7 +224,31 @@ setInterval(() => {
 }, 10000); // Vérification toutes les 10 secondes
 
 const PORT = process.env.PORT || 3001;
-httpServer.listen(PORT, () => {
-  console.log(`🚀 Serveur Socket.IO démarré sur le port ${PORT}`);
-  console.log(`🌐 URL: http://localhost:${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+
+httpServer.listen(PORT, HOST, () => {
+  console.log(`🚀 Serveur Socket.IO démarré sur ${HOST}:${PORT}`);
+
+  // Try to print a friendly LAN address if available
+  try {
+    const os = require('os');
+    const nets = os.networkInterfaces();
+    let lanIp = null;
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        if (net.family === 'IPv4' && !net.internal) {
+          lanIp = net.address;
+          break;
+        }
+      }
+      if (lanIp) break;
+    }
+    if (lanIp) {
+      console.log(`🌐 Accessible on the LAN at: http://${lanIp}:${PORT}`);
+    } else {
+      console.log(`🌐 If you're on the same machine, use: http://localhost:${PORT}`);
+    }
+  } catch (e) {
+    console.log(`🌐 If you're on the same machine, use: http://localhost:${PORT}`);
+  }
 });
