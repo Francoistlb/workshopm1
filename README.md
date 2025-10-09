@@ -1,21 +1,40 @@
-# React + Vite
+## Spécifications techniques
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Stack frontend: React (JSX) + Vite (dev server)
+- Stack backend: Node.js + Express + Socket.IO (simple in-memory session store)
+- Ports par défaut:
+	- Frontend (Vite dev server): 5173
+	- Backend (Socket.IO server): 3001
+- CORS: pendant le développement le serveur Socket.IO accepte toutes les origines (origin: '*'). En production, restreindre ceci à la/aux origine(s) autorisée(s).
+- Sessions: stockées en mémoire dans une Map (non persistant). Pour la production, utiliser une base de données ou Redis.
 
-Currently, two official plugins are available:
+## Lancer le projet en développement
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Installer les dépendances du frontend (depuis la racine du projet):
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
-###
-Faire la commande dans le dossier serveur/ 
+```bash
 npm install
-npm start
+```
+
+2. Lancer le serveur de développement Vite (frontend):
+
+```bash
+npm run dev
+```
+
+3. Installer les dépendances du serveur et démarrer le serveur Socket.IO (depuis le dossier `server/`):
+
+```bash
+cd server
+npm install
+node server.js
+```
+
+Le frontend par défaut écoute sur `http://localhost:5173` et le serveur Socket.IO sur `http://localhost:3001`.
+
+### Options d'environnement utiles
+
+- PORT: changer le port du serveur (ex: `PORT=4000 node server.js`).
+- HOST: par défaut le serveur écoute sur `0.0.0.0` pour autoriser l'accès depuis le réseau local. Pour restreindre à localhost: `HOST=127.0.0.1 node server.js`.
+
+
