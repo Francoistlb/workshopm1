@@ -4,7 +4,7 @@ import Corps from '../../enigmes/corps/corps'
 import PaperModal from '../../modals/PaperModal'
 import './Operation.css'
 
-function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
+function Operation({ playerPosition, setPlayerPosition, onReturnToAccueil, validateObjective }) {
   // États pour les différents éléments interactifs
   const [showOperatingTable, setShowOperatingTable] = useState(false)
   const [showScialytic, setShowScialytic] = useState(false)
@@ -144,7 +144,7 @@ function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil, 
       <div 
         className={`monitoring ${isPlayerNear(350, 200) ? 'interactive' : 'non-interactive'}`}
         onClick={handleMonitoringClick}
-        title={isPlayerNear(350, 200,) ? "Monitoring patient - Cliquez pour consulter" : "Approchez-vous pour consulter"}
+        title={isPlayerNear(350, 200) ? "Monitoring patient - Cliquez pour consulter" : "Approchez-vous pour consulter"}
       >
       </div>
 
@@ -243,4 +243,4 @@ function SalleOperation({ playerPosition, setPlayerPosition, onReturnToAccueil, 
   )
 }
 
-export default SalleOperation
+export default Operation

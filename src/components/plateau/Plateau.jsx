@@ -423,8 +423,13 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
         let newX = prev.x
         let newY = prev.y
         
+        // Vérification de sécurité pour event.key
+        if (!event || !event.key) {
+          return prev
+        }
+        
         switch (event.key.toLowerCase()) {
-          case 'w':
+          case 'z':
           case 'arrowup':
             newY = Math.max(playerSize / 2, prev.y - moveSpeed)
             break
@@ -432,7 +437,7 @@ function Plateau({ players = [], sessionCode = '', currentPlayer = 'Joueur 1', o
           case 'arrowdown':
             newY = Math.min(gameAreaBounds.height - playerSize / 2, prev.y + moveSpeed)
             break
-          case 'a':
+          case 'q':
           case 'arrowleft':
             newX = Math.max(playerSize / 2, prev.x - moveSpeed)
             break
